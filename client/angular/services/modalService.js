@@ -15,43 +15,43 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
 
      self.setParameters = (modalType) => {
           if (modalType === 'login') {
-               self.templateUrl = "../views/modal/loginModal.html";
+               self.templateUrl = "../angular/views/modal/loginModal.html";
                self.controller = self.loginCtrl;
                self.size = 'md';
           }else if (modalType === 'register'){
-               self.templateUrl = "../views/modal/registerModal.html";
+               self.templateUrl = "../angular/views/modal/registerModal.html";
                self.controller = self.registerCtrl;
                self.size = 'md';
           }else if (modalType === 'newTest') {
-               self.templateUrl = "../views/modal/newTestModal.html";
+               self.templateUrl = "../angular/views/modal/newTestModal.html";
                self.controller = self.newTestCtrl;
                self.size = 'md';
           }else if (modalType === 'loginFirst') {
-               self.templateUrl = "../views/modal/loginFirstError.html";
+               self.templateUrl = "../angular/views/modal/loginFirstError.html";
                self.controller = self.loginFirstCtrl;
                self.size = 'sm';
           }else if (modalType === attemptedTest) {
-               self.templateUrl = "../views/modal/attemptedTestModal.html";
+               self.templateUrl = "../angular/views/modal/attemptedTestModal.html";
                self.controller = self.attemptedTestCtrl;
                self.size = 'md';
           }else if (modalType === 'deleteQuestion') {
-               self.templateUrl = "../views/modal/deleteQuestionModal.html";
+               self.templateUrl = "../angular/views/modal/deleteQuestionModal.html";
                self.controller = self.deleteQuestionCtrl;
                self.size = 'sm';
           }else if (modalType === 'testInstructions') {
-               self.templateUrl = "../views/modal/testInstructionsModal.html";
+               self.templateUrl = "../angular/views/modal/testInstructionsModal.html";
                self.controller = self.testInstructionsCtrl;
                self.size = 'md';
           }else if (modalType === 'forgotPassword') {
-               self.templateUrl = "../views/modal/forgotPasswordModal1.html";
+               self.templateUrl = "../angular/views/modal/forgotPasswordModal1.html";
                self.controller = self.forgotPasswordCtrl;
                self.size = 'md';
           }else if (modalType === 'editAdminComments') {
-               self.templateUrl = "../views/modal/adminCommentsModal.html";
+               self.templateUrl = "../angular/views/modal/adminCommentsModal.html";
                self.controller = self.editAdminCommentsCtrl;
                self.size = 'md';
           }else if (modalType === 'dummyModal') {
-               self.templateUrl = "../views/modal/dummyModal.html";
+               self.templateUrl = "../angular/views/modal/dummyModal.html";
                self.controller = self.dummyCtrl;
                self.size = 'md';
           }
@@ -320,7 +320,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                $scope.error = undefined;
                if (otpCounter === 1) {
                     $uibModalInstance.close();
-                    self.templateUrl = "../views/modal/forgotPasswordModal2.html";
+                    self.templateUrl = "../angular/views/modal/forgotPasswordModal2.html";
                     self.controller = self.forgotPasswordCtrl;
                     self.size = 'md';
                     self.modalFunction();
@@ -336,7 +336,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           $rootScope.$on('successOTPSubmittion', () => {
                $scope.error = undefined;
                $uibModalInstance.close();
-               self.templateUrl = "../views/modal/forgotPasswordModal3.html";
+               self.templateUrl = "../angular/views/modal/forgotPasswordModal3.html";
                self.controller = self.forgotPasswordCtrl;
                self.size = 'md';
                self.modalFunction();

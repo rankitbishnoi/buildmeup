@@ -5,10 +5,20 @@ myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalSer
      if (tokenValidationResult === false) {
           self.authBtn = 'LogIn';
           self.user = false;
-          self.authFunction = login;
+          self.authFunction = () => {
+               modalService.setParameters('login');
+               modalService.modalFunction();
+          }
      }else {
           self.authBtn = 'LogOut';
-          self.authFunction = logout;
+
+          self.authFunction = () => {                                 // function to provide the functionality of logout, this will delete the token stored in localstorage and provide the user with login functionality again
+               $localStorage.token = undefined;
+               self.loginbtn = true;
+               self.logoutbtn = false;
+               $state.go('home');
+          }
+
           self.user = true;
           self.userInfo = tokenValidationResult;
           modalService.setUserInfo(self.userInfo);
@@ -19,17 +29,6 @@ myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalSer
           }
      }
 
-     var logout = () => {                                 // function to provide the functionality of logout, this will delete the token stored in localstorage and provide the user with login functionality again
-          $localStorage.token = undefined;
-          self.loginbtn = true;
-          self.logoutbtn = false;
-          $state.go('home');
-     }
-
-     var login = () => {
-          modalService.setParameters('login');
-          modalService.modalFunction();
-     }
 
      self.stateBck = 'homebck';                               // intital body background class
 
