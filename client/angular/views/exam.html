@@ -1,0 +1,44 @@
+<div ng-controller='examCtrl as exam'>
+     <div class="row">
+          <div class="col-xs-6 col-sm-4">
+               <p>Attempted: {{exam.testTaken.answers.length}}</p>
+          </div>
+          <div class="col-xs-6 col-sm-4">
+               <p>Total: {{exam.test.questions.length}}</p>
+          </div>
+          <div class="col-xs-6 col-sm-4">
+               <p>Time: {{exam.time}}</p>
+          </div>
+     </div>
+     <div class="row">
+          <div class="col-xs-12 col-sm-6">
+               <p> <strong> Q {{exam.presentQuestionNumber}}.</strong> {{exam.test.questions[(exam.presentQuestionNumber-1)].title}}</p>
+
+          </div>
+          <div class="col-xs-12 col-sm-6">
+               <p>Options: </p>
+               <ol type="a">
+                    <li ng-click="exam.markAnswer(1)"> <label><input type="radio" ng-model="exam.markedOption" value="1">{{exam.test.questions[(exam.presentQuestionNumber-1)].options.a}}</label></li>
+                    <li ng-click="exam.markAnswer(2)"> <label><input type="radio" ng-model="exam.markedOption" value="2">{{exam.test.questions[(exam.presentQuestionNumber-1)].options.b}}</label></li>
+                    <li ng-click="exam.markAnswer(3)"> <label><input type="radio" ng-model="exam.markedOption" value="3">{{exam.test.questions[(exam.presentQuestionNumber-1)].options.c}}</label></li>
+                    <li ng-click="exam.markAnswer(4)"> <label><input type="radio" ng-model="exam.markedOption" value="4">{{exam.test.questions[(exam.presentQuestionNumber-1)].options.d}}</label></li>
+          </div>
+     </div>
+     <div class="row">
+          <div class="col-sm-6 hidden-xs">
+               <p> Question Numbers </p>
+               <div>
+                    <button class="btn btn-default btn-sm" type="button" ng-repeat="question in exam.test.questions" ng-click="exam.changeQuestion($index)">{{$index + 1}}</button>
+               </div>
+          </div>
+          <div class="col-xs-4 col-sm-2">
+               <button class="btn btn-primary" type="button" ng-click="exam.previous()" ng-disabled="exam.presentQuestionNumber == 1">Previous</button>
+          </div>
+          <div class="col-xs-4 col-sm-2">
+               <button class="btn btn-primary" type="button" ng-click="exam.next()" ng-disabled="exam.presentQuestionNumber >= exam.test.questions.length">Next</button>
+          </div>
+          <div class="col-xs-4 col-sm-2">
+               <button class="btn btn-success" type="button" ng-click="exam.submit()">Submit</button>
+          </div>
+     </div>
+</div>

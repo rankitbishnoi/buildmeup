@@ -1,0 +1,16 @@
+<div ng-controller = "performanceCtrl as performance">
+     <div>
+          <h3> Mentor Comments:(about your performance) </h3>
+          <blockquote>
+               {{performance.userTestData.adminComments}}
+          </blockquote>
+     </div>
+     <div class="row">
+          <div class="col-xs-12 col-md-6">
+               <canvas id="doughnut" class="chart chart-doughnut" chart-data="performance.averageScoreData" chart-labels="performance.averageScoreLabels"></canvas>
+          </div>
+          <div class="col-xs-12 col-md-6">
+               <canvas id="doughnut" class="chart chart-doughnut" chart-data="performance.totalAttemptedTestsData" chart-labels="performance.totalAttemptedTestsLabels"></canvas>
+          </div>
+     </div>
+</div>

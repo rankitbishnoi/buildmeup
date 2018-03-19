@@ -1,0 +1,20 @@
+<div class="row modal-header">
+     <div class="col-xs-12 col-md-8 modal-title"  id="modal-title">
+          <h3> {{testData.name}} </h3>
+     </div>
+     <div class="col-xs-12 col-md-4">
+          <h4>{{testData.timeLimit}} Minutes</h4>
+     </div>
+</div>
+<div class="modal-body" id="modal-body">
+     <ul>
+          <li>Total Questions: {{testData.totalQuestions}}</li>
+          <li>Attempted: {{testData.attemptedQuestions}}</li>
+          <li>Correct: {{testData.correct}}</li>
+          <li>Time Taken: {{testData.timeTaken}} Minutes</li>
+          <li>Attempted On: {{testData.takenOn}}</li>
+     </ul>
+</div>
+<div class="modal-footer">
+     <button class="btn btn-primary" type="button" ng-click="ok()">Cancel</button>
+</div>

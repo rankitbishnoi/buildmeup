@@ -1,0 +1,102 @@
+
+</!DOCTYPE html>
+<html ng-app='BuildMeUp'>
+<head>
+     <title>HappyToHelp</title>
+     <!-- Required meta tags -->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+     <link rel="stylesheet" type="text/css" href="./styles/bootstrap.css">
+     <link rel="stylesheet" type="text/css" href="./styles/main.css">
+
+</head>
+<body ng-controller = "loginCtrl as login" class="modal-d">
+     <nav class="navbar navbar-default" role="navigation" ng-controller="navCollapseCtrl">
+          <div class="navbar-header">
+               <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="#">
+                    <img alt="Brand" src="./styles/images/logo.png" id="logoImage">
+               </a>
+               <a class = "navbar-brand">BuildMeUp</a>
+          </div>
+          <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+               <ul class="nav navbar-nav">
+
+                    <div style="margin:.6em" class="btn-group navbar-r" uib-dropdown is-open="status.isopen">
+                         <a role="button" style="margin-right:.6em" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-show = 'login.user'>
+                              login.userInfo.name <span class="caret"></span>
+                         </a>
+                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" ng-show = 'login.user'>
+                              <li role="menuitem" ng-show= "!adminBtn"><a ui-sref='performance'>Performance</a></li>
+                              <li role="menuitem" ng-show= "adminBtn"><a ui-sref='dashboard'>Dashboard</a></li>
+                              <li role="menuitem" ng-show= "adminBtn"><a ui-sref='alluserperformance'>All User Performance</a></li>
+                         </ul>
+                         <a role="button" class="btn btn-warning" uib-dropdown-toggle ng-disabled="disabled" ng-click= 'login.authFunction()'>
+                              {{login.authBtn}}
+                         </a>
+                    </div>
+               </ul>
+          </div>
+     </nav>
+
+
+
+     <div ui-view id="view"> </div>
+
+
+     <!-- Footer -->
+     <footer>
+          <div class="container-fluid" id="footer">
+               <div>
+                    <ul class="list-inline">
+                         <li ui-sref = 'home'>Home</li>
+                         <li ui-sref="test({type:'name', name: 'a'})">Test</li>
+                         <li ui-sref = 'contact'> Contact Us</li>
+                    </ul>
+               </div>
+               <p class="copyright text-muted small">Copyright &copy; Rankit.tech 2018. All Rights Reserved</p>
+          </div>
+     </footer>
+
+</section>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.1/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-touch.min.js"> </script>
+<script type="text/javascript" src="./scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+<script type="text/javascript " src="./angular/app.js "></script>
+<script type="text/javascript " src="./routing.js "></script>
+
+<script type='text/javascript' src="./angular/filter/pagination.js"></script>
+
+<script type='text/javascript' src="./angular/services/forgotPassword.js"></script>
+<script type='text/javascript' src="./angular/services/modalService.js"></script>
+<script type='text/javascript' src="./angular/services/testCRUD.js"></script>
+<script type='text/javascript' src="./angular/services/testService.js"></script>
+<script type='text/javascript' src="./angular/services/tokenValidationService.js"></script>
+<script type='text/javascript' src="./angular/services/userService.js"></script>
+
+<script type='text/javascript' src="./angular/controller/navCollapseCtrl.js"></script>
+<script type='text/javascript' src="./angular/controller/dashboardCtrl.js"></script>
+<script type='text/javascript' src="./angular/controller/createTestCtrl.js"></script>
+<script type='text/javascript' src="./angular/controller/examCtrl.js"></script>
+<script type='text/javascript' src="./angular/controller/homeCtrl.js"></script>
+<script type='text/javascript' src="./angular/controller/loginCtrl.js"></script>
+<script type='text/javascript' src="./angular/controller/performanceCtrl.js"></script>
+<script type='text/javascript' src="./angular/controller/singleUserCtrl.js"></script>
+<script type='text/javascript' src="./angular/controller/testCtrl.js"></script>
+
+</body>
+</html>

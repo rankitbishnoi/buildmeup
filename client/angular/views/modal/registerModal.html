@@ -1,0 +1,40 @@
+<div class="modal-header" id="modal-header">
+     <h3 class="modal-title" id="modal-title">Register </h3>
+</div>
+<div class="modal-body" id="modal-body">
+     <div class="row">
+          <div class="col-xs-6">
+               <p id='error' class="alert alert-danger" role="alert" ng-if='rerror'> {{rerror}} </p>
+               <p class="form-group">
+                    <label for="name">Name</label>
+                    <p id='error' class="alert alert-danger" role="alert" ng-if='nameerror'> {{nameerror}} </p>
+                    <input type="text" id="name" ng-model="name" class="form-control" autocomplete="on">
+               </p>
+               <p class="form-group">
+                    <label for="email">Email</label>
+                    <p id='error' class="alert alert-danger" role="alert" ng-if='emailerror'> {{emailerror}} </p>
+                    <input type="text" id="email" ng-model="email" class="form-control" autocomplete="on">
+               </p>
+               <p class="form-group">
+                    <label>Batch Code (only for Administration Personnal)</label>
+                    <input type="number" ng-model="batch" class="form-control">
+               </p>
+          </div>
+          <div class="col-xs-6">
+               <p class="form-group">
+                    <label for="password">Password</label>
+                    <p id='error' class="alert alert-danger" role="alert" ng-if='passworderror'> {{passworderror}} </p>
+                    <input type="password" id="password" class="form-control" ng-model="password" class="form-control" autocomplete="on">
+               </p>
+               <p class="form-group">
+                    <label>Confirm Password</label>
+                    <p  class="alert alert-danger" role="alert" id='error' ng-if='confirmpassworderror'> {{confirmpassworderror}} </p>
+                    <input type="password" class="form-control" ng-model="confirmpassword" class="form-control" autocomplete="on">
+               </p>
+          </div>
+     </div>
+     <button class="btn btn-primary" type="button" ng-click="registerNow()">Register</button>
+</div>
+<div class="modal-footer">
+     <button class="btn btn-primary" type="button" ng-click="ok()">Cancel</button>
+</div>

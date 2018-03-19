@@ -1,0 +1,26 @@
+<div ng-controller= "singleUserCtrl as singleUser">
+     <div class="row">
+          <div class="col-xs-12 col-sm-6">
+               <h2> Name : {{singleUser.user.name}}</h2>
+               <hr>
+               <h3>Mentor Comments: </h3>
+               <blockquote>{{singleUser.user.adminComments}}</blockquote>
+               <button class="btn btn-primary" type="button" ng-click="singleUser.editAdminComments()">Edit</button>
+               <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                         <canvas id="doughnut" class="chart chart-doughnut" chart-data="singleUser.averageScoreData" chart-labels="singleUser.averageScoreLabels"></canvas>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                         <canvas id="doughnut" class="chart chart-doughnut" chart-data="singleUser.totalAttemptedTestsData" chart-labels="singleUser.totalAttemptedTestsLabels"></canvas>
+                    </div>
+               </div>
+               <hr>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+               <h3> Test Taken: (TotalQuestions/Attemted/Correct)</h3>
+               <ul>
+                    <li ng-repeat= "test in singleUser.user.testTaken" ng-click="singleUser.testOverview(test)">{{test.name}} -- [{{test.totalQuestions}}/{{test.attemptedQuestions}}/{{test.correct}}]</li>
+               </ul>
+          </div>
+     </div>
+</div>

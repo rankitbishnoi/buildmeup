@@ -1,0 +1,19 @@
+<div class="modal-header">
+     <h3 class="modal-title" id="modal-title">Login </h3>
+</div>
+<div class="modal-body" id="modal-body">
+     <p class="form-group">
+          <label for='email'>Email</label>
+          <p id='error' class="alert alert-danger" role="alert" ng-if='error'> {{error}} </p>
+          <input type="text" id="email" ng-model="lemail" class="form-control" autocomplete="on">
+     </p>
+     <p class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" ng-model="lpassword" class="form-control" autocomplete="on">
+     </p>
+     <button class="btn btn-primary" type="button" ng-click="loginNow()">Login</button>
+     <a ng-click='register();'>New user? Click here! to Register</a>
+</div>
+<div class="modal-footer">
+     <button class="btn btn-primary" type="button" ng-click="ok()">Cancel</button>
+</div>

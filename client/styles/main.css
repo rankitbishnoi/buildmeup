@@ -1,0 +1,18 @@
+.horizontal-collapse {
+     height: 70px;
+}
+.navbar-collapse.in {
+     overflow-y: hidden;
+}
+
+@media only screen and (min-width: 768px) {
+     .navbar-r {
+          position: absolute;
+          right: 0px;
+     }
+}
+
+#logoImage {
+     height: 100%;
+     width: auto;
+}
