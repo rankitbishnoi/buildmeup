@@ -16,3 +16,22 @@
      height: 100%;
      width: auto;
 }
+
+.divBorder {
+     margin: .5em -.5em;
+     padding: .5em;
+     border: 2px solid grey;
+     border-radius: 5px;
+}
+
+.marginFive {
+     margin: .5em;
+}
+
+#blackColor, #copyrightBlack {
+     color: black;
+}
+
+.backgroundgrey {
+     background-color: #F8F8F8;
+}

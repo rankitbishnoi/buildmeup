@@ -1,5 +1,6 @@
-myapp.service('userService', ['$http', '$rootScope', function($http, $rootScope) {
+myapp.service('userService', ['$http', '$rootScope','$localStorage', function($http, $rootScope, $localStorage) {
      var self = this;
+     var token = $localStorage.token;
 
      self.fetchUserTestData = (userId) => {
           $http.get('http://localhost:3000/api/getUserTestsData?id='+userId, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){

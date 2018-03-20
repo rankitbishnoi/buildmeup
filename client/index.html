@@ -1,20 +1,19 @@
 
 </!DOCTYPE html>
-<html ng-app='BuildMeUp'>
+<html ng-app='BuildMeUp' lang="en">
 <head>
      <title>HappyToHelp</title>
      <!-- Required meta tags -->
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-     <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
-     <link rel="stylesheet" type="text/css" href="./styles/bootstrap.css">
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/todc-bootstrap/3.3.7-3.3.13/css/bootstrap.min.css">
      <link rel="stylesheet" type="text/css" href="./styles/main.css">
 
 </head>
 <body ng-controller = "loginCtrl as login" class="modal-d">
-     <nav class="navbar navbar-default" role="navigation" ng-controller="navCollapseCtrl">
+     <nav class="navbar navbar-default" role="navigation" ng-controller="navCollapseCtrl as navC">
           <div class="navbar-header">
-               <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+               <button type="button" class="navbar-toggle" ng-click="navC.isNavCollapsed = !navC.isNavCollapsed">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -23,21 +22,22 @@
                <a class="navbar-brand" href="#">
                     <img alt="Brand" src="./styles/images/logo.png" id="logoImage">
                </a>
-               <a class = "navbar-brand">BuildMeUp</a>
+               <a class = "navbar-brand" id="blackColor">BuildMeUp</a>
           </div>
-          <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+          <div class="collapse navbar-collapse" uib-collapse="navC.isNavCollapsed">
                <ul class="nav navbar-nav">
-
-                    <div style="margin:.6em" class="btn-group navbar-r" uib-dropdown is-open="status.isopen">
-                         <a role="button" style="margin-right:.6em" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-show = 'login.user'>
-                              login.userInfo.name <span class="caret"></span>
-                         </a>
-                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" ng-show = 'login.user'>
-                              <li role="menuitem" ng-show= "!adminBtn"><a ui-sref='performance'>Performance</a></li>
-                              <li role="menuitem" ng-show= "adminBtn"><a ui-sref='dashboard'>Dashboard</a></li>
-                              <li role="menuitem" ng-show= "adminBtn"><a ui-sref='alluserperformance'>All User Performance</a></li>
-                         </ul>
-                         <a role="button" class="btn btn-warning" uib-dropdown-toggle ng-disabled="disabled" ng-click= 'login.authFunction()'>
+                    <div style="margin:.6em" class="navbar-r">
+                         <div class="btn-group" uib-dropdown is-open="navC.status.isopen">
+                              <a role="button" style="margin-right:.6em" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-show = 'login.user'>
+                                   {{login.userInfo.name}} <span class="caret"></span>
+                              </a>
+                              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" ng-show = 'login.user'>
+                                   <li role="menuitem" ng-show= "!login.adminBtn"><a ui-sref='performance'>Performance</a></li>
+                                   <li role="menuitem" ng-show= "login.adminBtn"><a ui-sref='dashboard'>Dashboard</a></li>
+                                   <li role="menuitem" ng-show= "login.adminBtn"><a ui-sref='alluserperformance'>All User Performance</a></li>
+                              </ul>
+                         </div>
+                         <a role="button" class="btn btn-warning" ng-click= 'login.authFunction()'>
                               {{login.authBtn}}
                          </a>
                     </div>
@@ -47,20 +47,20 @@
 
 
 
-     <div ui-view id="view"> </div>
+     <div ui-view id="view" style = "min-height: 78vh"> </div>
 
 
      <!-- Footer -->
      <footer>
-          <div class="container-fluid" id="footer">
-               <div>
+          <div class="container-fluid backgroundgrey marginFive" id="footer" style="min-height:13vh">
+               <div class="marginFive">
                     <ul class="list-inline">
                          <li ui-sref = 'home'>Home</li>
                          <li ui-sref="test({type:'name', name: 'a'})">Test</li>
                          <li ui-sref = 'contact'> Contact Us</li>
                     </ul>
                </div>
-               <p class="copyright text-muted small">Copyright &copy; Rankit.tech 2018. All Rights Reserved</p>
+               <p class="copyright text-muted small" id="copyrightBlack">Copyright &copy; Rankit.tech 2018. All Rights Reserved</p>
           </div>
      </footer>
 
@@ -74,7 +74,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.1/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-touch.min.js"> </script>
-<script type="text/javascript" src="./scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
 <script type="text/javascript " src="./angular/app.js "></script>
 <script type="text/javascript " src="./routing.js "></script>

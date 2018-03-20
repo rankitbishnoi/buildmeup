@@ -1,44 +1,44 @@
-<div ng-controller= 'createTestCtrl as createTest'>
-     <div class="row">
-          <div class="col-2">
+<div ng-controller= 'createTestCtrl as createTest' class="marginFive">
+     <div class="row marginFive">
+          <div class="col-xs-2">
                <label for="nameTest">Name : </label>
           </div>
-          <div class="col-8">
+          <div class="col-xs-8">
                <input type="text" id="nameTest" ng-model="createTest.test.name" class="form-control">
           </div>
-          <div class="col-2">
+          <div class="col-xs-2">
                <button class="btn btn-danger" type="button" ng-click="createTest.delete()" ng-if="createTest.test._id">Delete</button>
           </div>
      </div>
-     <div class="row">
-          <div class="col-2">
+     <div class="row marginFive">
+          <div class="col-xs-2">
                <label for="descriptionTest">Description : </label>
           </div>
-          <div class="col-8">
+          <div class="col-xs-8">
                <textarea id="descriptionTest" rows="5" ng-model="createTest.test.description" class="form-control"></textarea>
           </div>
-          <div class="col-2">
+          <div class="col-xs-2">
                <button class="btn btn-danger" type="button" ng-click="createTest.save()">Save</button>
           </div>
      </div>
-     <div class="row">
-          <div class="col-2">
+     <div class="row marginFive">
+          <div class="col-xs-2">
                <label for="subjectTest">Subject : </label>
           </div>
-          <div class="col-8">
+          <div class="col-xs-8">
                <input type="text" id="subjectTest" ng-model="createTest.test.subject" class="form-control">
           </div>
      </div>
-     <div class="row">
-          <div class="col-2">
+     <div class="row marginFive">
+          <div class="col-xs-2">
                <label for="timeLimitTest">Time Limit(in minutes) : </label>
           </div>
-          <div class="col-8">
+          <div class="col-xs-8">
                <input type="number" id="timeLimitTest" ng-model="createTest.test.timeLimit" class="form-control">
           </div>
      </div>
-     <div class="row">
-          <div class="col-6">
+     <div class="row marginFive">
+          <div class="col-xs-6">
                <div ng-repeat="question in createTest.test.questions | startFrom:createTest.questionsCurrentPage*createTest.pageSize | limitTo:createTest.pageSize">
                     <p> <strong> Q {{$index + 1}}.</strong> {{question.title}} <span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click= "createTest.editQuestion($index)"></span> <span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="createTest.deleteQuestion($index)"></span></p>
                     <p> Options : </p>
@@ -49,24 +49,32 @@
                          <li>{{question.options.a}} <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-if="question.correct === 4"></span></li>
                     </ol>
                </div>
-               <button ng-disabled="createTest.questionsCurrentPage == 0" ng-click="createTest.questionsCurrentPage= createTest.questionsCurrentPage-1">
-                    Previous
-               </button>
-               {{createTest.questionsCurrentPage+1}}/{{createTest.questionsNumberOfPages}}
-               <button ng-disabled="createTest.questionsCurrentPage >= createTest.test.questions.length/createTest.pageSize - 1" ng-click="createTest.questionsCurrentPage=createTest.questionsCurrentPage+1">
-                    Next
-               </button>
+               <div ng-if="createTest.questionsNumberOfPages">
+                    <button ng-disabled="createTest.questionsCurrentPage == 0" ng-click="createTest.questionsCurrentPage= createTest.questionsCurrentPage-1">
+                         Previous
+                    </button>
+                    {{createTest.questionsCurrentPage+1}}/{{createTest.questionsNumberOfPages}}
+                    <button ng-disabled="createTest.questionsCurrentPage >= createTest.test.questions.length/createTest.pageSize - 1" ng-click="createTest.questionsCurrentPage=createTest.questionsCurrentPage+1">
+                         Next
+                    </button>
+               </div>
           </div>
-          <div class="col-6">
-               <label> Question: <input type="text" ng-model="createTest.editModetest.name" class="form-control"></label>
-               <label> Question Number : <input type="number" id="nameTest" ng-model="createTest.editQuestionNumber" class="form-control"></lable>
-               <p> Options : </p>
-               <ol type="a">
-                    <li><input type="text" ng-model="createTest.editModetest.options.a" class="form-control"><input type="radio" ng-model="createTest.editModetest.correct" value="1"></li>
-                    <li><input type="text" ng-model="createTest.editModetest.options.b" class="form-control"><input type="radio" ng-model="createTest.editModetest.correct" value="2"></li>
-                    <li><input type="text" ng-model="createTest.editModetest.options.c" class="form-control"><input type="radio" ng-model="createTest.editModetest.correct" value="3"></li>
-                    <li><input type="text" ng-model="createTest.editModetest.options.d" class="form-control"><input type="radio" ng-model="createTest.editModetest.correct" value="4"></li>
-               </ol>
+          <div class="col-xs-6">
+               <div class="row">
+                    <label> Question: <input type="text" ng-model="createTest.editModetest.title" class="form-control"></label>
+               </div>
+               <div class="row">
+                    <label> Question Number : <input type="number" id="nameTest" ng-model="createTest.editQuestionNumber" class="form-control" min="0"></lable>
+               </div>
+               <div class="row">
+                    <p> Options : </p>
+                    <ol type="a">
+                         <li><input type="text" ng-model="createTest.editModetest.options.a" class="form-control"><input type="radio" ng-model="createTest.editModetest.correct" ng-value=1></li>
+                         <li><input type="text" ng-model="createTest.editModetest.options.b" class="form-control"><input type="radio" ng-model="createTest.editModetest.correct" ng-value=2></li>
+                         <li><input type="text" ng-model="createTest.editModetest.options.c" class="form-control"><input type="radio" ng-model="createTest.editModetest.correct" ng-value=3></li>
+                         <li><input type="text" ng-model="createTest.editModetest.options.d" class="form-control"><input type="radio" ng-model="createTest.editModetest.correct" ng-value=4></li>
+                    </ol>
+               </div>
                <button class="btn btn-primary" type="button" ng-click="createTest.addQuestion()">Add</button>
           </div>
      </div>

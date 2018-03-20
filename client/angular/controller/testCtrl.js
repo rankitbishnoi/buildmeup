@@ -40,11 +40,12 @@ myapp.controller('testCtrl', ['$stateParams','testService','$rootScope','tokenVa
 
      $rootScope.$on('attemptedTests', () => {
           self.attemptedTests = testService.attemptedTests;
-          self.attemptedTestsNumberOfPages = Math.ceil($scope.attemptedTests.length/$scope.pageSize);
+          self.attemptedTestsNumberOfPages = Math.ceil(self.attemptedTests.length/self.pageSize);
      })
 
      self.availableTestCurrentPage = 0;
      self.attemptedTestsCurrentPage = 0;
+     self.filterCurrentPage = 0;
      self.pageSize = 10;
 
 

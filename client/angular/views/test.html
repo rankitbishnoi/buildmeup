@@ -1,4 +1,4 @@
-<div ng-controller= 'testCtrl as testCtrl'>
+<div ng-controller= 'testCtrl as testCtrl' class="marginFive">
      <div class="form-group">
           <label for="searchBySubject">Search</label>
           <input type="email" class="form-control" id="searchBySubject" placeholder="Search By Subject" ng-model= 'testCtrl.subject' >
@@ -7,38 +7,52 @@
      <hr>
      <div class="row">
           <div class="col-xs-12 col-sm-6">
-               <h3>Available Tests</h3>
-               <div style="margin:.6em" class="btn-group navbar-r" uib-dropdown is-open="status.isopen">
-                    <a role="button" style="margin-right:.6em" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-                         Filter By Subject: <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                         <li role="menuitem" ng-repeat="subject in home.subjectList"><a ng-click="home.getSubjectList(subject)">{{subject}}</a></li>
+               <div class="divBorder">
+                    <h4>Filter By Subject</h4>
+                    <div class="well well-sm">
+                         <ul class="nav nav-pills">
+                              <li ng-repeat="subject in testCtrl.subjectList | startFrom:testCtrl.filterCurrentPage*1 | limitTo:4" ng-click="testCtrl.getSubjectList(subject._id)">{{subject._id}} | </li>
+                              <li>
+                                   <span class="glyphicon glyphicon-chevron-left" ng-disabled="testCtrl.filterCurrentPage == 0" aria-hidden="true" ng-click="testCtrl.filterCurrentPage=testCtrl.filterCurrentPage - 1"></span>
+                                   <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+                                   <span class="glyphicon glyphicon-chevron-right" ng-disabled="testCtrl.filterCurrentPage >= testCtrl.subjectList.length - 4"  aria-hidden="true" ng-click="testCtrl.filterCurrentPage=testCtrl.filterCurrentPage+1"></span>
+                              </li>
+                         </ul>
+                    </div>
+                    <h3>Available Tests<span>
+                         <div style="margin:.6em" class="btn-group navbar-r" uib-dropdown is-open="status.isopen">
+                              <a role="button" style="margin-right:.6em" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                                   Filter By Subject: <span class="caret"></span>
+                              </a>
+                         </div>
+                    </span></h3>
+
+                    <ul>
+                         <li ng-repeat= "test in testCtrl.testList | startFrom:testCtrl.availableTestCurrentPage*testCtrl.pageSize | limitTo:testCtrl.pageSize" ng-click = "testCtrl.openTest(test)"> {{test.name}} </li>
                     </ul>
+                    <button ng-disabled="testCtrl.availableTestCurrentPage == 0" ng-click="testCtrl.availableTestCurrentPage= testCtrl.availableTestCurrentPage-1">
+                         Previous
+                    </button>
+                    {{testCtrl.availableTestCurrentPage+1}}/{{testCtrl.availableTestNumberOfPages}}
+                    <button ng-disabled="testCtrl.availableTestCurrentPage >= testCtrl.testList.length/testCtrl.pageSize - 1" ng-click="testCtrl.availableTestCurrentPage=testCtrl.availableTestCurrentPage+1">
+                         Next
+                    </button>
                </div>
-               <ul>
-                    <li ng-repeat= "test in testCtrl.testList | startFrom:testCtrl.availableTestCurrentPage*testCtrl.pageSize | limitTo:testCtrl.pageSize" ng-click = "testCtrl.openTest(test)"> {{test.name}} </li>
-               </ul>
-               <button ng-disabled="testCtrl.availableTestCurrentPage == 0" ng-click="testCtrl.availableTestCurrentPage= testCtrl.availableTestCurrentPage-1">
-                    Previous
-               </button>
-               {{testCtrl.availableTestCurrentPage+1}}/{{testCtrl.availableTestNumberOfPages}}
-               <button ng-disabled="testCtrl.availableTestCurrentPage >= testCtrl.testList.length/testCtrl.pageSize - 1" ng-click="testCtrl.availableTestCurrentPage=testCtrl.availableTestCurrentPage+1">
-                    Next
-               </button>
           </div>
           <div class="col-xs-12 col-sm-6">
-               <h3>Attempted Tests </h3>
-               <ul>
-                    <li ng-repeat = "test in testCtrl.attemptedTests | startFrom:testCtrl.attemptedTestsCurrentPage*testCtrl.pageSize | limitTo:testCtrl.pageSize" ng-click= "testCtrl.openAttemptedTest(test)"> {{test.name}} </li>
-               </ul>
-               <button ng-disabled="testCtrl.attemptedTestsCurrentPage == 0" ng-click="testCtrl.attemptedTestsCurrentPage=currentPage-1">
-                    Previous
-               </button>
-               {{testCtrl.attemptedTestsCurrentPage+1}}/{{testCtrl.attemptedTestsNumberOfPages}}
-               <button ng-disabled="testCtrl.attemptedTestsCurrentPage >= testCtrl.attemptedTests.length/testCtrl.pageSize - 1" ng-click="testList.attemptedTestsCurrentPage= testCtrl.attemptedTestsCurrentPage+1">
-                    Next
-               </button>
+               <div class="divBorder">
+                    <h3>Attempted Tests </h3>
+                    <ul>
+                         <li ng-repeat = "test in testCtrl.attemptedTests | startFrom:testCtrl.attemptedTestsCurrentPage*testCtrl.pageSize | limitTo:testCtrl.pageSize" ng-click= "testCtrl.openAttemptedTest(test)"> {{test.name}} </li>
+                    </ul>
+                    <button ng-disabled="testCtrl.attemptedTestsCurrentPage == 0" ng-click="testCtrl.attemptedTestsCurrentPage=testCtrl.attemptedTestsCurrentPage-1">
+                         Previous
+                    </button>
+                    {{testCtrl.attemptedTestsCurrentPage+1}}/{{testCtrl.attemptedTestsNumberOfPages}}
+                    <button ng-disabled="testCtrl.attemptedTestsCurrentPage >= testCtrl.attemptedTests.length/testCtrl.pageSize - 1" ng-click="testList.attemptedTestsCurrentPage= testCtrl.attemptedTestsCurrentPage+1">
+                         Next
+                    </button>
+               </div>
           </div>
      </div>
 </div>

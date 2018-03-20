@@ -1,4 +1,4 @@
-myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tokenValidation', function(testCRUD, $rootScope, modalService, tokenValidation) {
+myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tokenValidation','$state', function(testCRUD, $rootScope, modalService, tokenValidation, $state) {
      var self  = this;
      self.deleteCounter = 0;
      self.saveCounter = 0;
@@ -26,13 +26,14 @@ myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tok
                subject: '',
                questions: [],
                admin: {
-                         id: self.userInfo._id,
-                         name: self.userInfo.name
+                    id: self.userInfo._id,
+                    name: self.userInfo.name
                }
           }
      }
 
      self.delete = () => {
+          self.deleteCounter = 1;
           testCRUD.deleteTest(self.test._id);
      }
 
@@ -42,7 +43,7 @@ myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tok
 
      self.editQuestion = (index) => {
           self.saveCounter = 1;
-          self.editModetest = self.test.questions(index);
+          self.editModetest = self.test.questions[index];
           self.editQuestionNumber = (index + 1);
           self.test.questions.splice(index, 1);
      }
@@ -68,6 +69,7 @@ myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tok
      self.addQuestion = () => {
           var editQuestionIndex = (self.editQuestionNumber - 1);
           self.test.questions.splice(editQuestionIndex, 0, self.editModetest);
+          self.editModetest = {};
      }
 
      self.questionsCurrentPage = 0;
@@ -75,18 +77,22 @@ myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tok
      self.questionsNumberOfPages = Math.ceil(self.test.questions.length/self.pageSize);
 
      $rootScope.$on('successSaveTest', () => {
+          if (self.saveCounter === 1) {
+               modalService.setParameters('dummyModal');
+               modalService.setDummyMessage('Your Test has been saved');
+               modalService.modalFunction();
+          }
           self.saveCounter = 0;
-          modalService.setParameters('dummyModal');
-          modalService.setDummyMessage('Your Test has been saved');
-          modalService.modalFunction();
      });
 
      $rootScope.$on('successDeleteTest', () => {
-          $state.go('dashboard');
-          modalService.setParameters('dummyModal');
-          modalService.setDummyMessage('The test has been deleted.');
-          modalService.modalFunction();
-
+          if (self.deleteCounter === 1) {
+               $state.go('dashboard');
+               modalService.setParameters('dummyModal');
+               modalService.setDummyMessage('The test has been deleted.');
+               modalService.modalFunction();
+          }
+          self.deleteCounter = 0;
      });
 
      $rootScope.$on('unsuccessSaveTest', (msg) => {

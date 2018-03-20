@@ -1,37 +1,41 @@
-<div ng-controller="dashboardCtrl as dashboard">
-     <div class="row">
+<div ng-controller="dashboardCtrl as dashboard" class="marginFive">
+     <div class="row marginFive">
           <div class="col-xs-12 col-sm-6">
-               <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-                         <h3>Tests:</h3>
+               <div class="divBorder">
+                    <div class="row">
+                         <div class="col-xs-12 col-sm-6">
+                              <h3>Tests:</h3>
+                         </div>
+                         <div class="col-xs-12 col-sm-6">
+                              <button class="btn btn-primary" type="button" ng-click="dashboard.goToCreateTest()">Create Test</button>
+                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6">
-                         <button class="btn btn-primary navbar-r" type="button"><a ui-sref="createTest">Create Test</a></button>
-                    </div>
+                    <ul>
+                         <li ng-repeat = "test in dashboard.testList | startFrom:dashboard.testCurrentPage*dashboard.pageSize | limitTo:dashboard.pageSize" ng-click="dashboard.openTest(test)"> {{test.name}} </li>
+                    </ul>
+                    <button ng-disabled="dashboard.testCurrentPage == 0" ng-click="dashboard.testCurrentPage= dashboard.testCurrentPage-1">
+                         Previous
+                    </button>
+                    {{dashboard.testCurrentPage+1}}/{{dashboard.testNumberOfPages}}
+                    <button ng-disabled="dashboard.testCurrentPage >= dashboard.testList.length/dashboard.pageSize - 1" ng-click="dashboard.testCurrentPage= dashboard.testCurrentPage+1">
+                         Next
+                    </button>
                </div>
-               <ul>
-                    <li ng-repeat = "test in dashboard.testList | startFrom:dashboard.testCurrentPage*dashboard.pageSize | limitTo:dashboard.pageSize" ng-click="dashboard.openTest(test)"> {{test.name}} </li>
-               </ul>
-               <button ng-disabled="dashboard.testCurrentPage == 0" ng-click="dashboard.testCurrentPage= dashboard.testCurrentPage-1">
-                    Previous
-               </button>
-               {{dashboard.testCurrentPage+1}}/{{dashboard.testNumberOfPages}}
-               <button ng-disabled="dashboard.testCurrentPage >= dashboard.testList.length/dashboard.pageSize - 1" ng-click="dashboard.testCurrentPage= dashboard.testCurrentPage+1">
-                    Next
-               </button>
           </div>
           <div class="col-xs-12 col-sm-6">
-               <h3> Users :</h3>
-               <ul>
-                    <li ng-repeat = "user in dashboard.userList | startFrom:dashboard.userListCurrentPage*dashboard.pageSize | limitTo:dashboard.pageSize"> <a ui-sref="singleUser({id:user.email})">{{user.name}}</a>  <span class="badge pull-right">{{user.status || "offline"}}</span></li>
-               </ul>
-               <button ng-disabled="dashboard.userListCurrentPage == 0" ng-click="dashboard.userListCurrentPage= dashboard.userListCurrentPage-1">
-                    Previous
-               </button>
-               {{dashboard.userListCurrentPage+1}}/{{dashboard.userListNumberOfPages}}
-               <button ng-disabled="dashboard.userListCurrentPage >= dashboard.userList.length/dashboard.pageSize - 1" ng-click="dashboard.userListCurrentPage=dashboard.userListCurrentPage+1">
-                    Next
-               </button>
+               <div class="divBorder">
+                    <h3> Users :</h3>
+                    <ul>
+                         <li ng-repeat = "user in dashboard.userList | startFrom:dashboard.userListCurrentPage*dashboard.pageSize | limitTo:dashboard.pageSize"> <a ui-sref="singleUser({id:user.email})">{{user.name}}</a>  <span class="badge pull-right">{{user.status || "offline"}}</span></li>
+                    </ul>
+                    <button ng-disabled="dashboard.userListCurrentPage == 0" ng-click="dashboard.userListCurrentPage= dashboard.userListCurrentPage-1">
+                         Previous
+                    </button>
+                    {{dashboard.userListCurrentPage+1}}/{{dashboard.userListNumberOfPages}}
+                    <button ng-disabled="dashboard.userListCurrentPage >= dashboard.userList.length/dashboard.pageSize - 1" ng-click="dashboard.userListCurrentPage=dashboard.userListCurrentPage+1">
+                         Next
+                    </button>
+               </div>
           </div>
      </div>
 </div>

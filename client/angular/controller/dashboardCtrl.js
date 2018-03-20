@@ -1,4 +1,4 @@
-myapp.controller('dashboardCtrl', ['$rootScope', 'testService', 'tokenValidation','$state','modalService', function($rootScope, testService, tokenValidation, $state, modalService) {
+myapp.controller('dashboardCtrl', ['$rootScope', 'testService', 'tokenValidation','$state','modalService','userService', 'testCRUD', function($rootScope, testService, tokenValidation, $state, modalService, userService, testCRUD) {
      var self = this;
 
      var tokenValidationResult = tokenValidation.validation();
@@ -22,7 +22,7 @@ myapp.controller('dashboardCtrl', ['$rootScope', 'testService', 'tokenValidation
      })
 
      $rootScope.$on('userListForAdmin', () => {
-          self.userList = testService.userList;
+          self.userList = userService.userList;
           self.userListNumberOfPages = Math.ceil(self.userList.length/self.pageSize);
      })
 
@@ -34,5 +34,10 @@ myapp.controller('dashboardCtrl', ['$rootScope', 'testService', 'tokenValidation
           modalService.setParameters('newTest');
           modalService.setParametersForNewtest(testData);
           modalService.modalFunction();
+     }
+
+     self.goToCreateTest = () => {
+          testCRUD.setTest(undefined);
+          $state.go('createTest')
      }
 }]);

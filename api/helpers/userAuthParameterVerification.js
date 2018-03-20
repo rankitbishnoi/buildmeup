@@ -7,7 +7,7 @@ module.exports.register = (req, res, next) => {
           });
           return;
      }else {
-          req.body.email = req.body.email.email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching;
+          req.body.email = req.body.email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching;
           next();
      }
 }
@@ -20,7 +20,7 @@ module.exports.login = (req, res, next) => {
        });
        return;
      }else {
-          req.body.email = req.body.email.email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching;
+          req.body.email = req.body.email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching;
           next();
      }
 }

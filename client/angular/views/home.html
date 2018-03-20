@@ -1,34 +1,41 @@
 <div id="home" class="container-fluid" ng-controller="homeCtrl as home">
-  <div class="row hidden-xs">
-    <div class="col-12">
-
-    </div>
-  </div>
-  <div class="row">
-       <div class="col-xs-12 col-sm-3">
-            <h4> Subjects </h4>
-            <ul>
-                 <li ng-repeat= "(subject, noOfTests) in home.subjects | limitTo: 10"><a ui-sref="test({type:'subj', name: subject})">{{subject}} <span class="badge pull-right">{{noOfTests}}</span></a></li>
-            </ul>
-       </div>
-       <div class="col-xs-12 col-sm-6">
-            <h3> Latest Tests </h3>
-            <ul>
-                 <li ng-repeat = "test in home.testList | startFrom:home.availableTestCurrentPage*home.pageSize | limitTo:home.pageSize" ng-click = "home.openTest(test)"> {{test.name}} </li>
-            </ul>
-            <button ng-disabled="home.availableTestCurrentPage == 0" ng-click="home.availableTestCurrentPage= home.availableTestCurrentPage-1">
-                 Previous
-            </button>
-            {{home.availableTestCurrentPage+1}}/{{home.availableTestNumberOfPages}}
-            <button ng-disabled="home.availableTestCurrentPage >= home.testList.length/home.pageSize - 1" ng-click="home.availableTestCurrentPage=home.availableTestCurrentPage+1">
-                 Next
-            </button>
-       </div>
-       <div class="col-xs-12 col-sm-3">
-            <h4> Top Scorers </h4>
-            <ul>
-                 <li ng-repeat= "user in home.topScorerList | limitTo: 10"> {{user.name}} : {{user.performance}}%</li>
-            </ul>
-       </div>
-  </div>
+     <div class="row">
+          <div class="col-12">
+               <img src="../styles/images/homeImage.jpg" class="img-responsive" alt="Responsive image" style = "max-height: 27vh; width: 100%">
+          </div>
+     </div>
+     <hr>
+     <div class="row">
+          <div class="col-xs-12 col-sm-3">
+               <div class="divBorder">
+                    <h4> Subjects </h4>
+                    <ul>
+                         <li ng-repeat= "subject in home.subjects | limitTo: 10"><a ui-sref="test({type:'subj', name: subject._id})">{{subject._id}} <span class="badge pull-right">{{subject.count}}</span></a></li>
+                    </ul>
+               </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+               <div class="divBorder">
+                    <h4> Latest Tests </h4>
+                    <ul>
+                         <li ng-repeat = "test in home.testList | startFrom:home.availableTestCurrentPage*home.pageSize | limitTo:home.pageSize" ng-click = "home.openTest(test)"> {{test.name}} </li>
+                    </ul>
+                    <button ng-disabled="home.availableTestCurrentPage == 0" ng-click="home.availableTestCurrentPage= home.availableTestCurrentPage-1">
+                         Previous
+                    </button>
+                    {{home.availableTestCurrentPage+1}}/{{home.availableTestNumberOfPages}}
+                    <button ng-disabled="home.availableTestCurrentPage >= home.testList.length/home.pageSize - 1" ng-click="home.availableTestCurrentPage=home.availableTestCurrentPage+1">
+                         Next
+                    </button>
+               </div>
+          </div>
+          <div class="col-xs-12 col-sm-3">
+               <div class="divBorder">
+                    <h4> Top Scorers </h4>
+                    <ul>
+                         <li ng-repeat= "user in home.topScorerList | limitTo: 10"> {{user.name}} : {{user.performance}}%</li>
+                    </ul>
+               </div>
+          </div>
+     </div>
 </div>

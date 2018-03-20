@@ -38,18 +38,18 @@ module.exports.createTest = (req, res) => {
                test.questions = req.body.questions;
                test.admin = req.body.admin;
                test.availability = true;
-          })
 
-          test.save((err) => {
-               if(err) {
-                    response.sendJSONresponse(res, 400, {
-                         "message": "Something is Wrong. We are working it out. Try again."+err
-                    });
-                    return;
-               };
-               res.status(200);
-               res.json("Request Successfull.");
-          })
+               test.save((err) => {
+                    if(err) {
+                         response.sendJSONresponse(res, 400, {
+                              "message": "Something is Wrong. We are working it out. Try again."+err
+                         });
+                         return;
+                    };
+                    res.status(200);
+                    res.json("Request Successfull.");
+               })
+          });
      }
 
 
@@ -61,7 +61,7 @@ module.exports.deleteTest = (req, res) => {
      Tests.findOne({'_id': req.body.id}, (err, test) => {
           test.availability = false;
 
-          query.save((err) => {
+          test.save((err) => {
                if(err) {
                     sendJSONresponse(res, 400, {
                          "message": "Something is Wrong. We are working it out. Try again."
@@ -88,7 +88,7 @@ module.exports.getAdminTestList = (req, res) => {
 }
 
 module.exports.fetchSubjectList = (req, res) => {
-     Tests.aggregate().group({_id : '$subject'}).exec(function (err, list) {
+     Tests.aggregate().match({'availability': true}).group({_id : '$subject',count: {$sum: 1}}).exec(function (err, list) {
           if(err) {
                sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
@@ -114,7 +114,7 @@ module.exports.getTestList = (req, res) => {
 }
 
 module.exports.fetchSubjectTests = (req, res) => {
-     Tests.find({'subject': req.query.name}).sort({'_id': -1}).exec(function (err, list) {
+     Tests.find({'subject': req.query.name, 'availability': true}).sort({'_id': -1}).exec(function (err, list) {
           if(err) {
                sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."

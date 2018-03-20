@@ -25,7 +25,7 @@ myapp.service('testCRUD', ['$http', '$rootScope','$localStorage', function($http
           };
      }
 
-     self.saveTest = (testId) => {
+     self.deleteTest = (testId) => {
           var data = {id : testId};
           $http.post('http://localhost:3000/api/deleteTest', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {

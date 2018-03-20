@@ -30,7 +30,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                self.templateUrl = "../angular/views/modal/loginFirstError.html";
                self.controller = self.loginFirstCtrl;
                self.size = 'sm';
-          }else if (modalType === attemptedTest) {
+          }else if (modalType === 'attemptedTest') {
                self.templateUrl = "../angular/views/modal/attemptedTestModal.html";
                self.controller = self.attemptedTestCtrl;
                self.size = 'md';
@@ -96,7 +96,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                          if (response.status === 200) {              // condition to see if the request is successfull or not
                               $localStorage.token=response.data.token;                             // to store the token provided by the server
                               $scope.ok();
-                              $state.transitionTo($state.current, $stateParams, {
+                              $state.transitionTo($state.current, $state.params, {
                                    reload: true,
                                    inherit: false,
                                    notify: true
@@ -132,7 +132,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
 
      self.registerCtrl = function($scope,$uibModalInstance,$localStorage,$state) {      // modal controller
 
-          $scope.registerNow = function () {                             // function to initiate the registerring process
+          $scope.registerNow = function () {                          // function to initiate the registerring process
                var letters = /^[A-Za-z]+$/;                              // reges to check if only letters are present
                var letterNumber = /^[0-9a-zA-Z]+$/;                        // reges to see if only letters and numbers are present
                var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;         // reges to see if it is a valid emailid
@@ -173,7 +173,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                          // what to do when success
                          $localStorage.token=response.data.token;
                          $scope.ok();
-                         $state.transitionTo($state.current, $stateParams, {
+                         $state.transitionTo($state.current, $state.params, {
                               reload: true,
                               inherit: false,
                               notify: true
@@ -193,7 +193,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
      }
 
 
-     self.newTestCtrl = function($scope,$uibModalInstance, $state, $rootScope) {      // modal controller
+     self.newTestCtrl = function($scope,$uibModalInstance, $state, $rootScope, testCRUD, $state) {      // modal controller
 
           $scope.testData = self.newTest;
 
@@ -210,13 +210,19 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           }
 
           $scope.edit = () => {
-               $rootScope.$broadcast('editNewTest', (self.newTest));
+               testCRUD.setTest($scope.testData);
                $uibModalInstance.close();
                $state.go('createTest');
           }
 
           $scope.delete = () => {
-
+               testCRUD.deleteTest($scope.testData._id);
+               $state.transitionTo($state.current, $state.params, {
+                    reload: true,
+                    inherit: false,
+                    notify: true
+               });
+               $uibModalInstance.close();
           }
 
 
@@ -261,6 +267,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           $scope.start = () => {
                if ($scope.terms === true) {
                     $state.go('exam');
+                    $uibModalInstance.close();
                }
           }
 

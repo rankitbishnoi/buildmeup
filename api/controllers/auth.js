@@ -14,7 +14,7 @@ var updateLastLogin = (user) => {
 }
 
 
-module.exports.register = function(req, res) {
+module.exports.register = (req, res) => {
 
      var user = new User();
      user.local.name = req.body.name;
@@ -38,10 +38,9 @@ module.exports.register = function(req, res) {
                "token" : token
           });
      });
-
 };
 
-module.exports.localLogin = function(req, res) {
+module.exports.localLogin = (req, res) => {
 
      passport.authenticate('local', function(err, user, info){
           var token;

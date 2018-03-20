@@ -22,7 +22,7 @@ module.exports.getUserTestDetails = (req, res) => {
 }
 
 module.exports.getUserListForAdmin = (req, res) => {
-     Users.find({}, (err, list) => {
+     Users.find({'batch': 'User'}, (err, list) => {
           if(err) {
                sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
@@ -43,7 +43,7 @@ module.exports.getUserListForAdmin = (req, res) => {
 }
 
 module.exports.getTopStudents = (req, res) => {
-     Users.find().sort({'avgScore' : 1}).limit(10).exec(function (err, list) {
+     Users.find({'batch': 'User'}).sort({'avgScore' : 1}).limit(10).exec(function (err, list) {
           if(err) {
                sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
@@ -58,7 +58,7 @@ module.exports.getTopStudents = (req, res) => {
                userList.push(obj);
           });
           res.status(200);
-          res.json(list);
+          res.json(userList);
      });
 }
 
