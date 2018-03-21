@@ -19,7 +19,7 @@ module.exports.controller = (server) => {
                     admins.push(profile);
                     return 'Admin';
                }
-          }else if (profile.batch ==== 'User') {
+          }else if (profile.batch === 'User') {
                users.forEach((user) => {
                     if (user.email === profile.email) {
                          counter = 1;
@@ -117,7 +117,6 @@ module.exports.controller = (server) => {
                }else {
                     io.sockets.emit('unsuccessOTPSubmittion');
                }
-          });
-          */
-     }
+          });*/
+     })
 }
