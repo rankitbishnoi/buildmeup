@@ -1,5 +1,8 @@
 module.exports.controller = (server) => {
      var io = require('socket.io').listen(server);
+     //var mailer = require('../controllers/nodemailer');
+     //var mongoose = require('mongoose');
+     //var Users = mongoose.model('User');
 
      var users = [];
      var admins = [];
@@ -31,10 +34,37 @@ module.exports.controller = (server) => {
                return false;
           }
      }
+/*
+     var checkAccount = (email) => {
+          Users.findOne({'email': email}, (err, user)=> {
+               if(err) {
+                    console.log(err);
+                    return;
+               };
+               if (user === undefined || user.length === 0) {
+                    return 'notFound';
+               }else {
+                    return 'true';
+               }
+          })
+     }
+
+     var generateOTP = () => {
+          {
+               var text = "";
+               var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+               for (var i = 0; i < 5; i++)
+               text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+               return text;
+          }
+     }*/
 
      io.sockets.on('connection', (socket) => {
           var myself;
           var timerId;
+          var otp;
 
           var timer = (time) => {
                var countdown = timeLimit*60;
@@ -69,5 +99,25 @@ module.exports.controller = (server) => {
           socket.on('stop timer', () => {
                clearInterval(timerId);
           });
+/*
+          socket.on('sentNotification', (email) => {
+               if (checkAccount(email) === true) {
+                    otp = generateOTP();
+                    var msg = 'Your OTP for BuildMeUp account is '+ otp + '.';
+                    mailer.mail(email, msg);
+                    io.sockets.emit('successSentNotification');
+               }else if (checkAccount(email) === 'notFound') {
+                    io.sockets.emit('unsuccessSentNotification');
+               }
+          });
+
+          socket.on('submitOTP', (otpSubmitted) => {
+               if (otpSubmitted === otp) {
+                    io.sockets.emit('successOTPSubmittion');
+               }else {
+                    io.sockets.emit('unsuccessOTPSubmittion');
+               }
+          });
+          */
      }
 }

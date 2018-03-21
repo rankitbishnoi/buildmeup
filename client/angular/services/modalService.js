@@ -284,7 +284,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           };
      }
 
-     self.forgotPasswordCtrl = function($scope,$uibModalInstance) {      // modal controller
+     self.forgotPasswordCtrl = function($scope,$uibModalInstance, forgotPassword) {      // modal controller
 
           $scope.cancelOkBtn = "Cancel";
           $scope.email = '';
@@ -293,7 +293,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           var otpCounter = 0;
 
           $scope.sentNotification = () => {
-               $rootScope.$broadcast('sentNotification', $scope.email);
+               forgotPassword.sentNotification($scope.email);
                otpCounter++;
           }
 
@@ -301,13 +301,13 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                if (otpCounter >= 4) {
                     $scope.error = "You can only sent otp 3 times in one session."
                }else {
-                    $rootScope.$broadcast('sentNotification', $scope.email);
+                    forgotPassword.sentNotification($scope.email);
                     otpCounter= otpCounter + 2;
                }
           }
 
           $scope.submitOTP = () => {
-               $rootScope.$broadcast('submitOTP', $scope.otp);
+               forgotPassword.submitOTP($scope.otp);
           }
 
           $scope.submitNewPassword = () => {
@@ -325,7 +325,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                }else if ($scope.passwordF != $scope.confirmpasswordF) {
                     $scope.error = 'The password do not match. Please type again.';
                }else {
-                    $rootScope.$broadcast('newPassword', $scope.passwordF);
+                    forgotPassword.newPassword($scope.passwordF, $scope.email);
                }
 
           }

@@ -55,7 +55,7 @@ router.get('/getAllUserData', jwtAuthentication.auth, ctrlUser.getAllUserData);
 
 router.post('/saveAdminComments', jwtAuthentication.auth, ctrlUser.saveAdminComments);
 
-router.post('/changePassword', jwtAuthentication.auth, userParamsVerification.changePasswordPamas, ctrlUser.changePassword);
+router.post('/changePassword', ctrlUser.changePassword);
 
 router.post('/updateTestOnUser', jwtAuthentication.auth, ctrlUser.updateTestOnUser);
 

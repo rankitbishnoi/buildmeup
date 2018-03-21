@@ -132,5 +132,24 @@ module.exports.saveAdminComments = (req, res) => {
 }
 
 module.exports.changePassword = (req, res) => {
+     Users.findOne({'email': req.body.id}, (err, user) => {
+          if(err) {
+               sendJSONresponse(res, 400, {
+                    "message": "Something is Wrong. We are working it out. Try again."
+               });
+               return;
+          };
 
+          user.setPassword(req.body.password);
+          user.save((err) => {
+               if(err) {
+                    sendJSONresponse(res, 400, {
+                         "message": "Something is Wrong. We are working it out. Try again."
+                    });
+                    return;
+               };
+               res.status(200);
+               res.json("Request Successfull.");
+          })
+     })
 }
