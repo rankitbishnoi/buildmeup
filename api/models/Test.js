@@ -7,7 +7,6 @@ var testSchema = new mongoose.Schema({
      subject: String,
      questions: [
                     {
-                         qid: String,
                          title: String,
                          options: { a: String, b: String, c: String, d: String},
                          correct: Number

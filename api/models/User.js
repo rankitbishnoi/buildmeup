@@ -39,7 +39,7 @@ var userSchema = new mongoose.Schema({
                          attemptedQuestions: Number,
                          totalQuestions: Number,
                          timeTaken: Number,
-                         answers: [{ qId: String, markedOption: Number}],
+                         answers: [{ id: type: mongoose.Schema.Types.ObjectId, markedOption: Number}],
                          correct: Number,
                          takenOn : Date,
                          Score: Number

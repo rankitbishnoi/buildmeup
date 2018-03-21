@@ -1,0 +1,15 @@
+<div class="modal-header">
+     <h3 class="modal-title" id="modal-title">Result</h3>
+</div>
+<div class="modal-body" id="modal-body">
+     <ul>
+          <li>Total Questions: {{result.totalQuestions}}</li>
+          <li>Attempted questions: {{result.attemptedQuestions}}</li>
+          <li>Correct: {{result.correct}}</li>
+          <li>Score: {{result.score}}%</li>
+          <li>Time Taken: {{result.timeTaken}}</li>
+     </ul>
+</div>
+<div class="modal-footer">
+     <button class="btn btn-primary" type="button" ng-click="ok()">ok</button>
+</div>

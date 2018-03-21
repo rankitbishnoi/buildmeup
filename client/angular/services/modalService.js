@@ -13,6 +13,10 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           self.dummymsg = message;
      }
 
+     self.setResultOfUserTest = (result) => {
+          self.userResult = result;
+     }
+
      self.setParameters = (modalType) => {
           if (modalType === 'login') {
                self.templateUrl = "../angular/views/modal/loginModal.html";
@@ -49,6 +53,10 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           }else if (modalType === 'editAdminComments') {
                self.templateUrl = "../angular/views/modal/adminCommentsModal.html";
                self.controller = self.editAdminCommentsCtrl;
+               self.size = 'md';
+          }else if (modalType === 'result') {
+               self.templateUrl = "../angular/views/modal/resultModal.html";
+               self.controller = self.resultCtrl;
                self.size = 'md';
           }else if (modalType === 'dummyModal') {
                self.templateUrl = "../angular/views/modal/dummyModal.html";
@@ -120,9 +128,9 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           };
 
           $scope.register = () => {                            // function to close the login modal and call the register odal
-               $uibModalInstance.close();
                self.setParameters('register');
                self.modalFunction();
+               $uibModalInstance.close();
           }
 
           $scope.ok = () => {                                      // function to close the modal
@@ -211,8 +219,8 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
 
           $scope.edit = () => {
                testCRUD.setTest($scope.testData);
-               $uibModalInstance.close();
                $state.go('createTest');
+               $uibModalInstance.close();
           }
 
           $scope.delete = () => {
@@ -326,11 +334,11 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
 
                $scope.error = undefined;
                if (otpCounter === 1) {
-                    $uibModalInstance.close();
                     self.templateUrl = "../angular/views/modal/forgotPasswordModal2.html";
                     self.controller = self.forgotPasswordCtrl;
                     self.size = 'md';
                     self.modalFunction();
+                         $uibModalInstance.close();
                }else {
                     $scope.error = "The otp has been sent 2nd time.";
                }
@@ -342,11 +350,11 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
 
           $rootScope.$on('successOTPSubmittion', () => {
                $scope.error = undefined;
-               $uibModalInstance.close();
                self.templateUrl = "../angular/views/modal/forgotPasswordModal3.html";
                self.controller = self.forgotPasswordCtrl;
                self.size = 'md';
                self.modalFunction();
+               $uibModalInstance.close();
           });
 
           $rootScope.$on('unsuccessOTPSubmittion', () => {
@@ -382,6 +390,16 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           $scope.message = self.dummymsg;
 
           $scope.ok = () => {                                      // function to close the modal
+               $uibModalInstance.close();
+          };
+     }
+
+     self.resultCtrl = function($scope,$uibModalInstance) {      // modal controller
+
+          $scope.result = self.userResult;
+
+          $scope.ok = () => {                                      // function to close the modal
+               $state.go('home');
                $uibModalInstance.close();
           };
      }

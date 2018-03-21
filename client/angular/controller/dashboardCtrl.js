@@ -1,4 +1,4 @@
-myapp.controller('dashboardCtrl', ['$rootScope', 'testService', 'tokenValidation','$state','modalService','userService', 'testCRUD', function($rootScope, testService, tokenValidation, $state, modalService, userService, testCRUD) {
+myapp.controller('dashboardCtrl', ['$rootScope', 'testService', 'tokenValidation','$state','modalService','userService', 'testCRUD', 'socket', function($rootScope, testService, tokenValidation, $state, modalService, userService, testCRUD, socket) {
      var self = this;
 
      var tokenValidationResult = tokenValidation.validation();
@@ -40,4 +40,17 @@ myapp.controller('dashboardCtrl', ['$rootScope', 'testService', 'tokenValidation
           testCRUD.setTest(undefined);
           $state.go('createTest')
      }
+
+     //==============socket====================
+
+     socket.on('new user online', (users) => {
+          users.forEach((user) => {
+
+               self.userList.forEach((userL, i) => {
+                    if (userL.email === user.email) {
+                         self.userList[i].status = 'online';
+                    }
+               })
+          });
+     });
 }]);

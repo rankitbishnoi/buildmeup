@@ -57,7 +57,7 @@ router.post('/saveAdminComments', jwtAuthentication.auth, ctrlUser.saveAdminComm
 
 router.post('/changePassword', jwtAuthentication.auth, userParamsVerification.changePasswordPamas, ctrlUser.changePassword);
 
-router.post('/updateTestOnUser', jwtAuthentication.auth, userParamsVerification.updateTestOnUserParams, ctrlUser.updateTestOnUser);
+router.post('/updateTestOnUser', jwtAuthentication.auth, ctrlUser.updateTestOnUser);
 
 
 

@@ -5,7 +5,26 @@ var response = require('../helpers/responseSender.js');
 
 
 module.exports.updateTestOnUser = (req, res) => {
-
+     Users.findOne({'_id': req.body.id}, (err, user)=> {
+          if(err) {
+               sendJSONresponse(res, 400, {
+                    "message": "Something is Wrong. We are working it out. Try again."
+               });
+               return;
+          };
+          user.avgScore = (((user.avgScore*user.testTaken.length)+req.body.testTaken.score)/(user.testTaken.length+1));
+          user.testTaken.push(req.body.testTaken);
+          user.save((err) => {
+               if(err) {
+                    sendJSONresponse(res, 400, {
+                         "message": "Something is Wrong. We are working it out. Try again."
+                    });
+                    return;
+               };
+               res.status(200);
+               res.json("Request Successfull.");
+          })
+     });
 }
 
 module.exports.getUserTestDetails = (req, res) => {
@@ -77,7 +96,7 @@ module.exports.getUserTestsData = (req, res) => {
 }
 
 module.exports.getAllUserData = (req, res) => {
-     Users.findOne({'_id': req.query.id}, (err, user) => {
+     Users.findOne({'email': req.query.id}, (err, user) => {
           if(err) {
                sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."

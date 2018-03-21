@@ -1,4 +1,4 @@
-myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalService','tokenValidation', function ($localStorage, $state, $transitions, modalService, tokenValidation) {
+myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalService','tokenValidation', 'socket', function ($localStorage, $state, $transitions, modalService, tokenValidation, socket) {
      var self = this;
 
      var tokenValidationResult = tokenValidation.validation();
@@ -22,6 +22,7 @@ myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalSer
           self.user = true;
           self.userInfo = tokenValidationResult;
           modalService.setUserInfo(self.userInfo);
+          socket.emit('add user', self.userInfo);
           if (self.userInfo.batch === 'Admin') {
                self.adminBtn = true;
           }else {
@@ -42,5 +43,18 @@ myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalSer
                self.brandColor = 'white';
           }
      })
+
+     //===========================socket================
+
+     self.admins = [];
+     self.students = [];
+
+     socket.on('new admin online', (adminList) => {
+          self.admins = adminList;
+     });
+
+     socket.on('new user online', (userList) => {
+          self.students = userList;
+     });
 
 }]);

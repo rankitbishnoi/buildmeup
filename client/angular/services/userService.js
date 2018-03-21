@@ -30,7 +30,7 @@ myapp.service('userService', ['$http', '$rootScope','$localStorage', function($h
 
      self.saveAdminComments = (adminComments, userId) => {
           var data = { 'adminComments': adminComments, 'id': userId};
-          $http.post('http://localhost:3000/api/saveAdminComments?id=', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.post('http://localhost:3000/api/saveAdminComments', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     $rootScope.$broadcast('successAddAdminComments');
                }
@@ -59,6 +59,19 @@ myapp.service('userService', ['$http', '$rootScope','$localStorage', function($h
                if (response.status === 200) {
                     self.userList = response.data;
                     $rootScope.$broadcast('userListForAdmin');
+               }
+          }), function errorCallback(response){
+               if (response.status === 400 || response.status === 401) {
+                    console.log(response.data);
+               }
+          };
+     }
+
+     self.updateTestOnUser = (testTaken, userId) => {
+          var data = { test: testTaken, 'id': userId};
+          $http.post('http://localhost:3000/api/updateTestOnUser', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+               if (response.status === 200) {
+                    $rootScope.$broadcast('successUpdatingTestOnUser');
                }
           }), function errorCallback(response){
                if (response.status === 400 || response.status === 401) {
