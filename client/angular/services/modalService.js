@@ -127,6 +127,12 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                };
           };
 
+          $scope.forgotPassword = () => {
+               self.setParameters('forgotPassword');
+               self.modalFunction();
+               $uibModalInstance.close();
+          }
+
           $scope.register = () => {                            // function to close the login modal and call the register odal
                self.setParameters('register');
                self.modalFunction();
