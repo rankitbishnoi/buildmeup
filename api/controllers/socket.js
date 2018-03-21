@@ -67,7 +67,7 @@ module.exports.controller = (server) => {
           var otp;
 
           var timer = (time) => {
-               var countdown = timeLimit*60;
+               var countdown = time*60;
                var timer = () => {
                     countdown--;
                     io.sockets.in('User').emit('timer', { time: countdown });

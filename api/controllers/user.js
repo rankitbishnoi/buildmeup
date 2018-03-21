@@ -7,7 +7,7 @@ var response = require('../helpers/responseSender.js');
 module.exports.updateTestOnUser = (req, res) => {
      Users.findOne({'_id': req.body.id}, (err, user)=> {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -16,7 +16,7 @@ module.exports.updateTestOnUser = (req, res) => {
           user.testTaken.push(req.body.testTaken);
           user.save((err) => {
                if(err) {
-                    sendJSONresponse(res, 400, {
+                    response.sendJSONresponse(res, 400, {
                          "message": "Something is Wrong. We are working it out. Try again."
                     });
                     return;
@@ -30,7 +30,7 @@ module.exports.updateTestOnUser = (req, res) => {
 module.exports.getUserTestDetails = (req, res) => {
      Users.findOne({'_id': req.query.id}, (err, user) => {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -43,7 +43,7 @@ module.exports.getUserTestDetails = (req, res) => {
 module.exports.getUserListForAdmin = (req, res) => {
      Users.find({'batch': 'User'}, (err, list) => {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -64,7 +64,7 @@ module.exports.getUserListForAdmin = (req, res) => {
 module.exports.getTopStudents = (req, res) => {
      Users.find({'batch': 'User'}).sort({'avgScore' : 1}).limit(10).exec(function (err, list) {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -84,7 +84,7 @@ module.exports.getTopStudents = (req, res) => {
 module.exports.getUserTestsData = (req, res) => {
      Users.findOne({'_id': req.query.id}, (err, user) => {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -98,7 +98,7 @@ module.exports.getUserTestsData = (req, res) => {
 module.exports.getAllUserData = (req, res) => {
      Users.findOne({'email': req.query.id}, (err, user) => {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -111,7 +111,7 @@ module.exports.getAllUserData = (req, res) => {
 module.exports.saveAdminComments = (req, res) => {
      Users.findOne({'_id': req.body.id}, (err, user) => {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -120,7 +120,7 @@ module.exports.saveAdminComments = (req, res) => {
           user.adminComments = req.body.adminComments;
           user.save((err) => {
                if(err) {
-                    sendJSONresponse(res, 400, {
+                    response.sendJSONresponse(res, 400, {
                          "message": "Something is Wrong. We are working it out. Try again."
                     });
                     return;
@@ -134,7 +134,7 @@ module.exports.saveAdminComments = (req, res) => {
 module.exports.changePassword = (req, res) => {
      Users.findOne({'email': req.body.id}, (err, user) => {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -143,7 +143,7 @@ module.exports.changePassword = (req, res) => {
           user.setPassword(req.body.password);
           user.save((err) => {
                if(err) {
-                    sendJSONresponse(res, 400, {
+                    response.sendJSONresponse(res, 400, {
                          "message": "Something is Wrong. We are working it out. Try again."
                     });
                     return;

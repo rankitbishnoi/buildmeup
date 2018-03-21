@@ -26,7 +26,7 @@ myapp.service('forgotPassword', ['$http', '$rootScope', function($http, $rootSco
      //============================socket================================
 
 
-     socket.on('successSentNotification' () => {
+     socket.on('successSentNotification', () => {
           $rootScope.$broadcast('successSentNotification');
      });
 
@@ -34,7 +34,7 @@ myapp.service('forgotPassword', ['$http', '$rootScope', function($http, $rootSco
           $rootScope.$broadcast('unsuccessSentNotification');
      });
 
-     socket.on('successOTPSubmittion' () => {
+     socket.on('successOTPSubmittion', () => {
           $rootScope.$broadcast('successOTPSubmittion');
      });
 

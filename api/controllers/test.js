@@ -63,7 +63,7 @@ module.exports.deleteTest = (req, res) => {
 
           test.save((err) => {
                if(err) {
-                    sendJSONresponse(res, 400, {
+                    response.sendJSONresponse(res, 400, {
                          "message": "Something is Wrong. We are working it out. Try again."
                     });
                     return;
@@ -77,7 +77,7 @@ module.exports.deleteTest = (req, res) => {
 module.exports.getAdminTestList = (req, res) => {
      Tests.find({'admin.id': req.body.id}, (err, testList) => {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -90,7 +90,7 @@ module.exports.getAdminTestList = (req, res) => {
 module.exports.fetchSubjectList = (req, res) => {
      Tests.aggregate().match({'availability': true}).group({_id : '$subject',count: {$sum: 1}}).exec(function (err, list) {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -103,7 +103,7 @@ module.exports.fetchSubjectList = (req, res) => {
 module.exports.getTestList = (req, res) => {
      Tests.find({'availability': true}).sort({'_id': -1}).exec(function (err, list) {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -116,7 +116,7 @@ module.exports.getTestList = (req, res) => {
 module.exports.fetchSubjectTests = (req, res) => {
      Tests.find({'subject': req.query.name, 'availability': true}).sort({'_id': -1}).exec(function (err, list) {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
@@ -129,7 +129,7 @@ module.exports.fetchSubjectTests = (req, res) => {
 module.exports.getTotalNoOfTests = (req, res) => {
      Tests.count({}, (err, test) => {
           if(err) {
-               sendJSONresponse(res, 400, {
+               response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;

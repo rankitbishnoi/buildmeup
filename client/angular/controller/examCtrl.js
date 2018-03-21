@@ -61,7 +61,7 @@ myapp.controller('examCtrl', ['modalService','$state','tokenValidation','socket'
           if (self.minutes != 0) {
                self.stopTimer();
           }
-          self.testTaken.timeTaken = ((self.test.timeLimit - self.minutes)*60) - self.seconds);
+          self.testTaken.timeTaken = (((self.test.timeLimit - self.minutes)*60) - self.seconds);
           self.testTaken.answers.forEach((answer)=> {
                self.test.questions.forEach((question) => {
                     if (question._id === answer.id) {
@@ -76,7 +76,7 @@ myapp.controller('examCtrl', ['modalService','$state','tokenValidation','socket'
           modalService.modalFunction();
      }
 
-     $rootScope.on('successUpdatingTestOnUser', () => {
+     $rootScope.$on('successUpdatingTestOnUser', () => {
           modalService.setParameters('result');
           modalService.setResultOfUserTest(self.testTaken);
           modalService.modalFunction();
