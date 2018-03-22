@@ -8,7 +8,7 @@
      <div class="row">
           <div class="col-xs-12 col-sm-3">
                <div class="divBorder">
-                    <h4> Subjects </h4>
+                    <h4> Subjects </h4><hr>
                     <ul>
                          <li ng-repeat= "subject in home.subjects | limitTo: 10"><a ui-sref="test({type:'subj', name: subject._id})">{{subject._id}} <span class="badge pull-right">{{subject.count}}</span></a></li>
                     </ul>
@@ -16,7 +16,7 @@
           </div>
           <div class="col-xs-12 col-sm-6">
                <div class="divBorder">
-                    <h4> Latest Tests </h4>
+                    <h4> Latest Tests </h4><hr>
                     <ul>
                          <li ng-repeat = "test in home.testList | startFrom:home.availableTestCurrentPage*home.pageSize | limitTo:home.pageSize" ng-click = "home.openTest(test)"> {{test.name}} </li>
                     </ul>
@@ -31,7 +31,7 @@
           </div>
           <div class="col-xs-12 col-sm-3">
                <div class="divBorder">
-                    <h4> Top Scorers </h4>
+                    <h4> Top Scorers </h4><hr>
                     <ul>
                          <li ng-repeat= "user in home.topScorerList | limitTo: 10"> {{user.name}} : {{user.performance}}%</li>
                     </ul>
