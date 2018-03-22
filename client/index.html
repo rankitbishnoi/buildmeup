@@ -12,7 +12,7 @@
 
 </head>
 <body ng-controller = "loginCtrl as login" class="modal-d">
-     <nav class="navbar navbar-default" role="navigation" ng-controller="navCollapseCtrl as navC">
+     <nav class="navbar navbar-inverse" role="navigation" ng-controller="navCollapseCtrl as navC">
           <div class="navbar-header">
                <button type="button" class="navbar-toggle" ng-click="navC.isNavCollapsed = !navC.isNavCollapsed">
                     <span class="sr-only">Toggle navigation</span>
@@ -51,7 +51,7 @@
 
 
      <!-- Footer -->
-     <footer class="backgroundgrey">
+     <footer class="backgroundgrey"  id="copyrightBlack">
           <div class="container-fluid marginFive" id="footer" style="min-height:13vh">
                <div class="marginFive">
                     <ul class="list-inline">
@@ -89,11 +89,11 @@
                          </li>
                     </ul>
                </div>
-               <p class="copyright text-muted small" id="copyrightBlack">Copyright &copy; Rankit.tech 2018. All Rights Reserved</p>
+               <p class="copyright text-muted small">Copyright &copy; Rankit.tech 2018. All Rights Reserved</p>
           </div>
      </footer>
 
-     
+
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>

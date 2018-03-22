@@ -29,13 +29,13 @@
 }
 
 #blackColor, #copyrightBlack {
-     color: black;
+     color: white;
 }
 
 .backgroundgrey {
-     background-color: #F8F8F8;
+     background-color: #272727;
 }
 
 body {
-     background: url(./images/background.jpg);
+     background: no-repeat center/100% url(./images/background1.jpg);
 }
