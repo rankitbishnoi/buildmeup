@@ -20,11 +20,11 @@
                     <ul>
                          <li ng-repeat = "test in home.testList | startFrom:home.availableTestCurrentPage*home.pageSize | limitTo:home.pageSize" ng-click = "home.openTest(test)"> {{test.name}} </li>
                     </ul>
-                    <button ng-disabled="home.availableTestCurrentPage == 0" ng-click="home.availableTestCurrentPage= home.availableTestCurrentPage-1">
+                    <button ng-disabled="home.availableTestCurrentPage == 0" ng-click="home.availableTestCurrentPage= home.availableTestCurrentPage-1" ng-hide="home.hidePagination">
                          Previous
                     </button>
                     {{home.availableTestCurrentPage+1}}/{{home.availableTestNumberOfPages}}
-                    <button ng-disabled="home.availableTestCurrentPage >= home.testList.length/home.pageSize - 1" ng-click="home.availableTestCurrentPage=home.availableTestCurrentPage+1">
+                    <button ng-disabled="home.availableTestCurrentPage >= home.testList.length/home.pageSize - 1" ng-click="home.availableTestCurrentPage=home.availableTestCurrentPage+1"  ng-hide="home.hidePagination">
                          Next
                     </button>
                </div>

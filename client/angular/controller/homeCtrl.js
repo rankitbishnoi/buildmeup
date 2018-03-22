@@ -12,6 +12,11 @@ myapp.controller('homeCtrl', ['$rootScope','testService','modalService','userSer
      $rootScope.$on('latestTests', () => {
           self.testList = testService.latestTests;
           self.availableTestNumberOfPages= Math.ceil(self.testList.length/self.pageSize);
+          if (self.availableTestNumberOfPages === 0) {
+               self.hidePagination = true;
+          }else {
+               self.hidePagination = false;
+          }
      });
 
      $rootScope.$on('topScorerList', () => {
