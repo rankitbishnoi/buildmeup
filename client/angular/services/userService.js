@@ -3,7 +3,7 @@ myapp.service('userService', ['$http', '$rootScope','$localStorage', function($h
      var token = $localStorage.token;
 
      self.fetchUserTestData = (userId) => {
-          $http.get('http://localhost:3000/api/getUserTestsData?id='+userId, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.get('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/getUserTestsData?id='+userId, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     self.userTestData = response.data;
                     $rootScope.$broadcast('userTestData');
@@ -16,7 +16,7 @@ myapp.service('userService', ['$http', '$rootScope','$localStorage', function($h
      }
 
      self.fetchAllUserData = (userid) => {
-          $http.get('http://localhost:3000/api/getAllUserData?id='+userId, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.get('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/getAllUserData?id='+userId, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     self.allUserData = response.data;
                     $rootScope.$broadcast('allUserData');
@@ -30,7 +30,7 @@ myapp.service('userService', ['$http', '$rootScope','$localStorage', function($h
 
      self.saveAdminComments = (adminComments, userId) => {
           var data = { 'adminComments': adminComments, 'id': userId};
-          $http.post('http://localhost:3000/api/saveAdminComments', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.post('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/saveAdminComments', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     $rootScope.$broadcast('successAddAdminComments');
                }
@@ -42,7 +42,7 @@ myapp.service('userService', ['$http', '$rootScope','$localStorage', function($h
      }
 
      self.fetchTopScorerList = () => {
-          $http.get('http://localhost:3000/api/getTopStudents').then( function successCallback(response){
+          $http.get('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/getTopStudents').then( function successCallback(response){
                if (response.status === 200) {
                     self.topScorerList = response.data;
                     $rootScope.$broadcast('topScorerList');
@@ -55,7 +55,7 @@ myapp.service('userService', ['$http', '$rootScope','$localStorage', function($h
      }
 
      self.fetchAllUserListForAdmin = () => {
-          $http.get('http://localhost:3000/api/getUserListForAdmin', { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.get('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/getUserListForAdmin', { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     self.userList = response.data;
                     $rootScope.$broadcast('userListForAdmin');
@@ -69,7 +69,7 @@ myapp.service('userService', ['$http', '$rootScope','$localStorage', function($h
 
      self.updateTestOnUser = (test, userId) => {
           var data = { testTaken: test, id: userId};
-          $http.post('http://localhost:3000/api/updateTestOnUser', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.post('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/updateTestOnUser', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     $rootScope.$broadcast('successUpdatingTestOnUser');
                }

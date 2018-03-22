@@ -13,7 +13,7 @@ myapp.service('forgotPassword', ['$http', '$rootScope', 'socket', function($http
 
      self.newPassword = (password, email) => {
           var data = { 'id': email, 'pass': password};
-          $http.post('http://localhost:3000/api/changePassword', data).then( function successCallback(response){
+          $http.post('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/changePassword', data).then( function successCallback(response){
                if (response.status === 200) {
                     $rootScope.$broadcast('successChangePassword');
                }

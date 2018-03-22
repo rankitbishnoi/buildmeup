@@ -100,7 +100,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                     $scope.lpassword = '';
                } else {
                     var data = { email: $scope.lemail, password: $scope.lpassword};
-                    $http.post('http://localhost:3000/api/login', data).then(function successCallback(response){     // http request to the server to login
+                    $http.post('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/login', data).then(function successCallback(response){     // http request to the server to login
                          if (response.status === 200) {              // condition to see if the request is successfull or not
                               $localStorage.token=response.data.token;                             // to store the token provided by the server
                               $scope.ok();
@@ -180,7 +180,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                          name: $scope.name,
                          batch: $scope.batch,
                     };                                            // http request to the server for registering with appropriate data
-                    $http.post('http://localhost:3000/api/register', data).then(function successCallback(response){
+                    $http.post('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/register', data).then(function successCallback(response){
                          // what to do when success
                          $localStorage.token=response.data.token;
                          $scope.ok();

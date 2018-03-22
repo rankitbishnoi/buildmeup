@@ -21,7 +21,7 @@ It is an Ticket Based web-app for user to raise their queries and they will be a
 
 **This web app is made with back-end and front-end combined together.**
 1. When you run the app. It will listen the request on port 3000.
-2. Visit http://localhost:3000/happytohelp to start the app on front-end.
+2. Visit http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/happytohelp to start the app on front-end.
 3. if you place the whole app on any server and use the software like nginx or any else. Please change the $http request links accordingly.
 
 **If you want to make the back-end and front-end separate. Then,**

@@ -12,7 +12,7 @@ myapp.service('testCRUD', ['$http', '$rootScope','$localStorage', function($http
 
      self.saveTest = (test) => {
           var data = test;
-          $http.post('http://localhost:3000/api/createEditTest', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.post('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/createEditTest', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     $rootScope.$broadcast('successSaveTest');
                }
@@ -27,7 +27,7 @@ myapp.service('testCRUD', ['$http', '$rootScope','$localStorage', function($http
 
      self.deleteTest = (testId) => {
           var data = {id : testId};
-          $http.post('http://localhost:3000/api/deleteTest', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.post('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/deleteTest', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     $rootScope.$broadcast('successDeleteTest');
                }

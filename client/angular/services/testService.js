@@ -3,7 +3,7 @@ myapp.service('testService', ['$http','$rootScope','$localStorage', function($ht
      var token = $localStorage.token;
 
      self.fetchSubjectTests = (subject) => {
-          $http.get('http://localhost:3000/api/fetchSubjectTests?name='+subject, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.get('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/fetchSubjectTests?name='+subject, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     self.subjectTestList = response.data;
                     $rootScope.$broadcast('subjectTests');
@@ -16,7 +16,7 @@ myapp.service('testService', ['$http','$rootScope','$localStorage', function($ht
      }
 
      self.fetchAttemptedTests = (userId) => {
-          $http.get('http://localhost:3000/api/getUserTestDetails?id='+userId, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.get('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/getUserTestDetails?id='+userId, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     self.attemptedTests = response.data;
                     $rootScope.$broadcast('attemptedTests');
@@ -29,7 +29,7 @@ myapp.service('testService', ['$http','$rootScope','$localStorage', function($ht
      }
 
      self.fetchSubjectList = () => {
-          $http.get('http://localhost:3000/api/fetchSubjectList').then( function successCallback(response){
+          $http.get('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/fetchSubjectList').then( function successCallback(response){
                if (response.status === 200) {
                     self.subjectList = response.data;
                     $rootScope.$broadcast('subjectList');
@@ -42,7 +42,7 @@ myapp.service('testService', ['$http','$rootScope','$localStorage', function($ht
      }
 
      self.fetchLatestTests = () => {
-          $http.get('http://localhost:3000/api/getTestList').then( function successCallback(response){
+          $http.get('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/getTestList').then( function successCallback(response){
                if (response.status === 200) {
                     self.latestTests = response.data;
                     $rootScope.$broadcast('latestTests');
@@ -56,7 +56,7 @@ myapp.service('testService', ['$http','$rootScope','$localStorage', function($ht
 
      self.fetchAdminTest = (adminId) => {
           var data = {id : adminId};
-          $http.post('http://localhost:3000/api/getAdminTestList', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.post('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/getAdminTestList', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     self.adminTest = response.data;
                     $rootScope.$broadcast('adminTest');
@@ -69,7 +69,7 @@ myapp.service('testService', ['$http','$rootScope','$localStorage', function($ht
      }
 
      self.fetchTotalNoOfTests = () => {
-          $http.get('http://localhost:3000/api/getTotalNoOfTests', { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
+          $http.get('http://ec2-18-191-2-34.us-east-2.compute.amazonaws.com/api/getTotalNoOfTests', { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     self.totalTests = response.data;
                     $rootScope.$broadcast('totalNoOfTests');
