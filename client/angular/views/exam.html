@@ -18,10 +18,10 @@
           <div class="col-xs-12 col-sm-6">
                <p>Options: </p>
                <ol type="a">
-                    <li ng-click="exam.markAnswer(1)"> <label><input type="radio" ng-model="exam.markedOption" ng-value=1>{{exam.test.questions[(exam.presentQuestionNumber-1)].options.a}}</label></li>
-                    <li ng-click="exam.markAnswer(2)"> <label><input type="radio" ng-model="exam.markedOption" ng-value=2>{{exam.test.questions[(exam.presentQuestionNumber-1)].options.b}}</label></li>
-                    <li ng-click="exam.markAnswer(3)"> <label><input type="radio" ng-model="exam.markedOption" ng-value=3>{{exam.test.questions[(exam.presentQuestionNumber-1)].options.c}}</label></li>
-                    <li ng-click="exam.markAnswer(4)"> <label><input type="radio" ng-model="exam.markedOption" ng-value=4>{{exam.test.questions[(exam.presentQuestionNumber-1)].options.d}}</label></li>
+                    <li ng-click="exam.markAnswer(1)"> <label><input type="radio" ng-model="exam.markedOption[exam.presentQuestionNumber-1]" ng-value=1>{{exam.test.questions[(exam.presentQuestionNumber-1)].options.a}}</label></li>
+                    <li ng-click="exam.markAnswer(2)"> <label><input type="radio" ng-model="exam.markedOption[exam.presentQuestionNumber-1]" ng-value=2>{{exam.test.questions[(exam.presentQuestionNumber-1)].options.b}}</label></li>
+                    <li ng-click="exam.markAnswer(3)"> <label><input type="radio" ng-model="exam.markedOption[exam.presentQuestionNumber-1]" ng-value=3>{{exam.test.questions[(exam.presentQuestionNumber-1)].options.c}}</label></li>
+                    <li ng-click="exam.markAnswer(4)"> <label><input type="radio" ng-model="exam.markedOption[exam.presentQuestionNumber-1]" ng-value=4>{{exam.test.questions[(exam.presentQuestionNumber-1)].options.d}}</label></li>
           </div>
      </div>
      <div class="row">

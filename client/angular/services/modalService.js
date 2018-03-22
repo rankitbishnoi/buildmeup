@@ -104,11 +104,8 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                          if (response.status === 200) {              // condition to see if the request is successfull or not
                               $localStorage.token=response.data.token;                             // to store the token provided by the server
                               $scope.ok();
-                              $state.transitionTo($state.current, $state.params, {
-                                   reload: true,
-                                   inherit: false,
-                                   notify: true
-                              });
+                              $state.go('home');
+                              window.location.reload();
                          }
 
                          //what to do on success
@@ -187,11 +184,8 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                          // what to do when success
                          $localStorage.token=response.data.token;
                          $scope.ok();
-                         $state.transitionTo($state.current, $state.params, {
-                              reload: true,
-                              inherit: false,
-                              notify: true
-                         });
+                         $state.go('home');
+                         window.location.reload();
 
                     }, function errorCallback(err){
                          if (err.status === 400) {
@@ -297,13 +291,16 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           $scope.error = undefined;
           $scope.otp = '';
           var otpCounter = 0;
+          var processCounter = 0;
 
           $scope.sentNotification = () => {
                forgotPassword.sentNotification($scope.email);
+               self.userInfo = { 'email': $scope.email};
                otpCounter++;
           }
 
           $scope.sentOTP = () => {
+               processCounter++;
                if (otpCounter >= 4) {
                     $scope.error = "You can only sent otp 3 times in one session."
                }else {
@@ -331,7 +328,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                }else if ($scope.passwordF != $scope.confirmpasswordF) {
                     $scope.error = 'The password do not match. Please type again.';
                }else {
-                    forgotPassword.newPassword($scope.passwordF, $scope.email);
+                    forgotPassword.newPassword($scope.passwordF, self.userInfo.email);
                }
 
           }
@@ -344,7 +341,7 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                     self.controller = self.forgotPasswordCtrl;
                     self.size = 'md';
                     self.modalFunction();
-                         $uibModalInstance.close();
+                    $uibModalInstance.close();
                }else {
                     $scope.error = "The otp has been sent 2nd time.";
                }
@@ -355,12 +352,15 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           });
 
           $rootScope.$on('successOTPSubmittion', () => {
-               $scope.error = undefined;
-               self.templateUrl = "../angular/views/modal/forgotPasswordModal3.html";
-               self.controller = self.forgotPasswordCtrl;
-               self.size = 'md';
-               self.modalFunction();
-               $uibModalInstance.close();
+               if (processCounter != 0) {
+                    $scope.error = undefined;
+                    self.templateUrl = "../angular/views/modal/forgotPasswordModal3.html";
+                    self.controller = self.forgotPasswordCtrl;
+                    self.size = 'md';
+                    self.modalFunction();
+                    processCounter = 0;
+                    $uibModalInstance.close();
+               }
           });
 
           $rootScope.$on('unsuccessOTPSubmittion', () => {
@@ -394,6 +394,10 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
      self.dummyCtrl = function($scope,$uibModalInstance) {      // modal controller
 
           $scope.message = self.dummymsg;
+
+          $rootScope.$on('close modal', () =>{
+               $uibModalInstance.close();
+          });
 
           $scope.ok = () => {                                      // function to close the modal
                $uibModalInstance.close();

@@ -35,3 +35,7 @@
 .backgroundgrey {
      background-color: #F8F8F8;
 }
+
+body {
+     background: url(./images/background.jpg);
+}

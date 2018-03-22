@@ -67,8 +67,8 @@ myapp.service('userService', ['$http', '$rootScope','$localStorage', function($h
           };
      }
 
-     self.updateTestOnUser = (testTaken, userId) => {
-          var data = { test: testTaken, 'id': userId};
+     self.updateTestOnUser = (test, userId) => {
+          var data = { testTaken: test, id: userId};
           $http.post('http://localhost:3000/api/updateTestOnUser', data, { headers: {'Authorization': 'Bearer '+ token}}).then( function successCallback(response){
                if (response.status === 200) {
                     $rootScope.$broadcast('successUpdatingTestOnUser');

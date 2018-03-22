@@ -8,6 +8,7 @@ myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalSer
           self.authFunction = () => {
                modalService.setParameters('login');
                modalService.modalFunction();
+               $state.go('home');
           }
      }else {
           self.authBtn = 'LogOut';
@@ -17,6 +18,7 @@ myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalSer
                self.loginbtn = true;
                self.logoutbtn = false;
                $state.go('home');
+               window.location.reload();
           }
 
           self.user = true;

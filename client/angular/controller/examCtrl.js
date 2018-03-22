@@ -1,5 +1,6 @@
 myapp.controller('examCtrl', ['modalService','$state','tokenValidation','socket', 'userService', '$rootScope', function(modalService, $state, tokenValidation, socket, userService, $rootScope) {
      var self = this;
+     self.markedOption = [];
 
      var tokenValidationResult = tokenValidation.validation();
 
@@ -22,10 +23,14 @@ myapp.controller('examCtrl', ['modalService','$state','tokenValidation','socket'
                          answers: [],
      };
 
+     self.test.questions.forEach((question, i) => {
+          self.markedOption[i] = 0;
+     });
+
      self.presentQuestionNumber = 1;
 
      self.markAnswer = (option) => {
-          self.markedOption = String(option);
+          self.markedOption[self.presentQuestionNumber-1] = option;
           var obj = { id : self.test.questions[(self.presentQuestionNumber-1)]._id, markedOption : option};
           var counter = 0;
           var index = undefined;
@@ -64,22 +69,27 @@ myapp.controller('examCtrl', ['modalService','$state','tokenValidation','socket'
           self.testTaken.timeTaken = (((self.test.timeLimit - self.minutes)*60) - self.seconds);
           self.testTaken.answers.forEach((answer)=> {
                self.test.questions.forEach((question) => {
-                    if (question._id === answer.id) {
+                    if (question._id === answer.id && question.correct === answer.markedOption) {
                          self.testTaken.correct++;
                     }
                });
           });
-          self.score = ((self.testTaken.correct/self.testTaken.totalQuestions) * 100).toFixed(3);
+          self.testTaken.score = ((self.testTaken.correct/self.testTaken.totalQuestions) * 100).toFixed(2);
           userService.updateTestOnUser(self.testTaken, self.userInfo._id);
           modalService.setParameters('dummyModal');
           modalService.setDummyMessage('Your test has been submitted. Please wait while we evaluate it. Do not click On the Screen.');
           modalService.modalFunction();
+          self.scorCounter = 1;
      }
 
      $rootScope.$on('successUpdatingTestOnUser', () => {
-          modalService.setParameters('result');
-          modalService.setResultOfUserTest(self.testTaken);
-          modalService.modalFunction();
+          if (self.scorCounter === 1) {
+               $rootScope.$broadcast('close modal');
+               modalService.setParameters('result');
+               modalService.setResultOfUserTest(self.testTaken);
+               modalService.modalFunction();
+               self.scorCounter = 0 ;
+          }
      });
 
      //========================socket ======================

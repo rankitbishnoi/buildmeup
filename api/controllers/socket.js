@@ -1,8 +1,8 @@
 module.exports.controller = (server) => {
      var io = require('socket.io').listen(server);
-     //var mailer = require('../controllers/nodemailer');
-     //var mongoose = require('mongoose');
-     //var Users = mongoose.model('User');
+     var mailer = require('../controllers/nodeMailer');
+     var mongoose = require('mongoose');
+     var Users = mongoose.model('User');
 
      var users = [];
      var admins = [];
@@ -34,20 +34,6 @@ module.exports.controller = (server) => {
                return false;
           }
      }
-/*
-     var checkAccount = (email) => {
-          Users.findOne({'email': email}, (err, user)=> {
-               if(err) {
-                    console.log(err);
-                    return;
-               };
-               if (user === undefined || user.length === 0) {
-                    return 'notFound';
-               }else {
-                    return 'true';
-               }
-          })
-     }
 
      var generateOTP = () => {
           {
@@ -59,20 +45,21 @@ module.exports.controller = (server) => {
 
                return text;
           }
-     }*/
+     }
 
      io.sockets.on('connection', (socket) => {
           var myself;
           var timerId;
           var otp;
+          var otpCounter = 0;
 
           var timer = (time) => {
                var countdown = time*60;
                var timer = () => {
                     countdown--;
-                    io.sockets.in('User').emit('timer', { time: countdown });
+                    io.sockets.in(myself.email).emit('timer', countdown);
                     if (countdown === 0) {
-                         io.sockets.in('User').emit('submit test');
+                         io.sockets.in(myself.email).emit('submit test');
                     }
                }
                timerId = setInterval(timer, countdown);
@@ -80,6 +67,7 @@ module.exports.controller = (server) => {
 
           socket.on('add user', (profile) => {
                myself = profile;
+               socket.join(myself.email);
                socket.join('home');
 
                var connectionRoom = addProfile(profile);
@@ -93,22 +81,39 @@ module.exports.controller = (server) => {
           });
 
           socket.on('start exam time', (timeLimit) => {
-               timer(timeLimit);
+               if (otpCounter === 0) {
+                    timer(timeLimit);
+                    otpCounter = 2;
+               }
           });
 
           socket.on('stop timer', () => {
                clearInterval(timerId);
           });
-/*
+
           socket.on('sentNotification', (email) => {
-               if (checkAccount(email) === true) {
-                    otp = generateOTP();
-                    var msg = 'Your OTP for BuildMeUp account is '+ otp + '.';
-                    mailer.mail(email, msg);
-                    io.sockets.emit('successSentNotification');
-               }else if (checkAccount(email) === 'notFound') {
-                    io.sockets.emit('unsuccessSentNotification');
-               }
+               otpCounter = otpCounter + 2;
+               Users.findOne({'local.email': email}, (err, user)=> {
+                    if(err) {
+                         console.log(err);
+                         return;
+                    };
+                    if (user != null && otpCounter === 2) {
+                         otp = generateOTP();
+                         var msg = 'Your OTP for BuildMeUp account is '+ otp + '.';
+                         mailer.mail(email, msg);
+                         io.sockets.emit('successSentNotification');
+                    }else if (user === null && otpCounter === 2) {
+                         io.sockets.emit('unsuccessSentNotification');
+                    }
+
+                    if (user != null && otpCounter >= 2) {
+                         var msg = 'Your OTP for BuildMeUp account is '+ otp + '.';
+                         mailer.mail(email, msg);
+                    }
+               });
+
+
           });
 
           socket.on('submitOTP', (otpSubmitted) => {
@@ -117,6 +122,6 @@ module.exports.controller = (server) => {
                }else {
                     io.sockets.emit('unsuccessOTPSubmittion');
                }
-          });*/
+          });
      })
 }

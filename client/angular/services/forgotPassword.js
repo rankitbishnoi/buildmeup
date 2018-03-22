@@ -1,16 +1,18 @@
-myapp.service('forgotPassword', ['$http', '$rootScope', function($http, $rootScope) {
+myapp.service('forgotPassword', ['$http', '$rootScope', 'socket', function($http, $rootScope, socket) {
      var self = this;
+     var otpsubmitionCounter = 0;
 
      self.sentNotification = (email) => {
           socket.emit('sentNotification', email);
      }
 
      self.submitOTP = (otp)=> {
+          otpsubmitionCounter++;
           socket.emit('submitOTP', otp);
      };
 
      self.newPassword = (password, email) => {
-          var data = { id: email, pass: password};
+          var data = { 'id': email, 'pass': password};
           $http.post('http://localhost:3000/api/changePassword', data).then( function successCallback(response){
                if (response.status === 200) {
                     $rootScope.$broadcast('successChangePassword');
@@ -35,7 +37,10 @@ myapp.service('forgotPassword', ['$http', '$rootScope', function($http, $rootSco
      });
 
      socket.on('successOTPSubmittion', () => {
-          $rootScope.$broadcast('successOTPSubmittion');
+          if (otpsubmitionCounter != 0) {
+               $rootScope.$broadcast('successOTPSubmittion');
+               otpsubmitionCounter = 0;
+          }
      });
 
      socket.on('unsuccessOTPSubmittion', () => {

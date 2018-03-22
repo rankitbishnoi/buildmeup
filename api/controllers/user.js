@@ -12,10 +12,16 @@ module.exports.updateTestOnUser = (req, res) => {
                });
                return;
           };
-          user.avgScore = (((user.avgScore*user.testTaken.length)+req.body.testTaken.score)/(user.testTaken.length+1));
+          if (user.avgScore === undefined) {
+               user.avgScore = 0;
+               user.avgScore = (((user.avgScore*user.testTaken.length)+req.body.testTaken.score)/(user.testTaken.length+1));
+          }else {
+               user.avgScore = (((user.avgScore*user.testTaken.length)+req.body.testTaken.score)/(user.testTaken.length+1));
+          }
           user.testTaken.push(req.body.testTaken);
           user.save((err) => {
                if(err) {
+                    console.log(err);
                     response.sendJSONresponse(res, 400, {
                          "message": "Something is Wrong. We are working it out. Try again."
                     });
@@ -132,15 +138,14 @@ module.exports.saveAdminComments = (req, res) => {
 }
 
 module.exports.changePassword = (req, res) => {
-     Users.findOne({'email': req.body.id}, (err, user) => {
+     Users.findOne({'local.email': req.body.id}, (err, user) => {
           if(err) {
                response.sendJSONresponse(res, 400, {
                     "message": "Something is Wrong. We are working it out. Try again."
                });
                return;
           };
-
-          user.setPassword(req.body.password);
+          user.setPassword(req.body.pass);
           user.save((err) => {
                if(err) {
                     response.sendJSONresponse(res, 400, {
