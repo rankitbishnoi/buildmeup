@@ -1,6 +1,7 @@
 myapp.controller('singleUserCtrl', ['$rootScope','userService','$state','tokenValidation','modalService', 'testService', function($http, userService, $state, tokenValidation, modalService, testService){
       var self = this;
 
+//==================================token validation using service and changing the DOM accordingly ========================
       var tokenValidationResult = tokenValidation.validation();
 
      if (tokenValidationResult === false) {
@@ -12,18 +13,19 @@ myapp.controller('singleUserCtrl', ['$rootScope','userService','$state','tokenVa
                $state.go('home');
           }
      }
+//=============================================================================================================================
 
      userService.fetchAllUserData($state.params.id);
      testService.fetchTotalNoOfTests();
 
      $rootScope.$on('allUserData', () => {
           self.user = userService.allUserData;
-          self.averageScoreData = [(100-self.user.avgScore), self.user.avgScore];
+          self.averageScoreData = [(100-self.user.avgScore), self.user.avgScore];              // details for the donut chart
      });
 
      $rootScope.$on('totalNoOfTests', () => {
           self.totalTests = testService.totalTests;
-          self.totalAttemptedTestsData = [(self.totalTests - self.user.testTaken.length), self.user.testTaken.length];
+          self.totalAttemptedTestsData = [(self.totalTests - self.user.testTaken.length), self.user.testTaken.length];       // details for the donut chart
      });
 
      self.editAdminComments = () => {
@@ -46,8 +48,8 @@ myapp.controller('singleUserCtrl', ['$rootScope','userService','$state','tokenVa
           self.user.adminComments = adminComments;
      });
 
-     self.averageScoreLabels = ['(%)', 'Average Score(%)'];
-     self.totalAttemptedTestsLabels = ['Total No. Of tests', 'Attempted']
+     self.averageScoreLabels = ['(%)', 'Average Score(%)'];                            // lables for the donut chart
+     self.totalAttemptedTestsLabels = ['Total No. Of tests', 'Attempted']             // lables for the donut chart
 
 
 }]);

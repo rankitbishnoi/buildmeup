@@ -1,4 +1,4 @@
-myapp.factory('socket', function ($rootScope) {
+myapp.factory('socket', function ($rootScope) { // socket io service for the real time comunication
   var socket = io.connect();
   return {
     on: function (eventName, callback) {

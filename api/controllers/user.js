@@ -12,7 +12,7 @@ module.exports.updateTestOnUser = (req, res) => {
                });
                return;
           };
-          if (user.avgScore === undefined) {
+          if (user.avgScore === undefined) { // to calculate the avgscore whenever user take a new test
                user.avgScore = 0;
                user.avgScore = (((user.avgScore*user.testTaken.length)+req.body.testTaken.score)/(user.testTaken.length+1));
           }else {

@@ -1,5 +1,5 @@
 var response = require('./responseSender.js');
-
+// to verify the parameters send by the client side to server before executing the appropriate function
 module.exports.createTestParams = (req, res, next) => {
      if (req.body.name === undefined || req.body.subject === undefined || req.body.description === undefined || req.body.timeLimit === undefined || req.body.admin.id === undefined || req.body.admin.name === undefined || req.body.questions === undefined) {
           response.sendJSONresponse(res, 401, {

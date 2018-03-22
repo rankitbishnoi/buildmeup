@@ -1,8 +1,10 @@
 myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tokenValidation','$state', function(testCRUD, $rootScope, modalService, tokenValidation, $state) {
      var self  = this;
-     self.deleteCounter = 0;
-     self.saveCounter = 0;
+     self.deleteCounter = 0; //counter to execute the process only once even if the event is emitted twice
+     self.saveCounter = 0; //counter to execute the process only once even if the event is emitted twice
 
+
+//==================================token validation using service and changing the DOM accordingly ========================
      var tokenValidationResult = tokenValidation.validation();
 
      if (tokenValidationResult === false) {
@@ -14,11 +16,11 @@ myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tok
                $state.go('home');
           }
      }
+//=============================================================================================================================
 
+     self.test = testCRUD.test; // getting the test details if admin came to this ui-state for editing test
 
-     self.test = testCRUD.test;
-
-     if (self.test === undefined) {
+     if (self.test === undefined) { // getting the test details ready in variable if admin came to this ui-state for creating test
           self.test = {
                name: '',
                description: '',
@@ -50,8 +52,8 @@ myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tok
 
      self.deleteQuestion = (index) => {
           self.deleteCounter = 1;
-          modalService.setParameters('deleteQuestion');
-          modalService.modalFunction();
+          modalService.setParameters('deleteQuestion');  // setting modal instructions in modal service
+          modalService.modalFunction();                       // calling modal from modalService
           self.deleteQuestionIndex = index;
      }
 
@@ -78,9 +80,9 @@ myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tok
 
      $rootScope.$on('successSaveTest', () => {
           if (self.saveCounter === 1) {
-               modalService.setParameters('dummyModal');
-               modalService.setDummyMessage('Your Test has been saved');
-               modalService.modalFunction();
+               modalService.setParameters('dummyModal');            // setting modal instructions in modal service
+               modalService.setDummyMessage('Your Test has been saved');      // setting the template for dummy modal
+               modalService.modalFunction();                          // calling modal from modalService
           }
           self.saveCounter = 0;
      });
@@ -88,17 +90,17 @@ myapp.controller('createTestCtrl', ['testCRUD', '$rootScope','modalService','tok
      $rootScope.$on('successDeleteTest', () => {
           if (self.deleteCounter === 1) {
                $state.go('dashboard');
-               modalService.setParameters('dummyModal');
-               modalService.setDummyMessage('The test has been deleted.');
+               modalService.setParameters('dummyModal');                        // setting modal instructions in modal service
+               modalService.setDummyMessage('The test has been deleted.');       // setting the template for dummy modal
                modalService.modalFunction();
           }
           self.deleteCounter = 0;
      });
 
      $rootScope.$on('unsuccessSaveTest', (msg) => {
-          modalService.setParameters('dummyModal');
-          modalService.setDummyMessage(msg);
-          modalService.modalFunction();
+          modalService.setParameters('dummyModal');                             // setting modal instructions in modal service
+          modalService.setDummyMessage(msg);                                     // setting the template for dummy modal
+          modalService.modalFunction();                                          // calling modal from modalService
      });
 
 

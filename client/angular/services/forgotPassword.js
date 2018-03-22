@@ -2,6 +2,7 @@ myapp.service('forgotPassword', ['$http', '$rootScope', 'socket', function($http
      var self = this;
      var otpsubmitionCounter = 0;
 
+// socket io is used for real time password change when user/admin for got password
      self.sentNotification = (email) => {
           socket.emit('sentNotification', email);
      }

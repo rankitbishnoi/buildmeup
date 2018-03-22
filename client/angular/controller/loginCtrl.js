@@ -1,6 +1,8 @@
 myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalService','tokenValidation', 'socket', function ($localStorage, $state, $transitions, modalService, tokenValidation, socket) {
      var self = this;
 
+
+//==================================token validation using service and changing the DOM accordingly ========================
      var tokenValidationResult = tokenValidation.validation();
      if (tokenValidationResult === false) {
           self.authBtn = 'LogIn';
@@ -20,6 +22,8 @@ myapp.controller('loginCtrl',['$localStorage', '$state','$transitions','modalSer
                $state.go('home');
                window.location.reload();
           }
+
+//=============================================================================================================================
 
           self.user = true;
           self.userInfo = tokenValidationResult;

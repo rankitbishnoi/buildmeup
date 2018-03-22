@@ -1,23 +1,23 @@
 myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','$rootScope', function($uibModal, $log, $document, $http, $state, $rootScope){
      var self= this;
 
-     self.setUserInfo = (user) => {
+     self.setUserInfo = (user) => {     // setting user informartion for modal
           self.userInfo = user;
      }
 
-     self.setAdminComments = (adminComments) => {
+     self.setAdminComments = (adminComments) => {    // setting admins comment on the user for modal
           self.adminComments = adminComments;
      }
 
-     self.setDummyMessage = (message) => {
+     self.setDummyMessage = (message) => {          // setting template for dummy modal which fwiil be used for warning , success, result other types of notifications
           self.dummymsg = message;
      }
 
-     self.setResultOfUserTest = (result) => {
+     self.setResultOfUserTest = (result) => {          // setting result of the test given by user for result modal
           self.userResult = result;
      }
 
-     self.setParameters = (modalType) => {
+     self.setParameters = (modalType) => {          // setting the template, controller, size of the modal for specified modal
           if (modalType === 'login') {
                self.templateUrl = "../angular/views/modal/loginModal.html";
                self.controller = self.loginCtrl;
@@ -65,11 +65,11 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           }
      }
 
-     self.setParametersForNewtest = (test) => {
+     self.setParametersForNewtest = (test) => {                    // setting test details ofr the newtest modal
           self.newTest = test;
      }
 
-     self.setParametersForAttemptedtest = (test) => {
+     self.setParametersForAttemptedtest = (test) => {           // setting test details for the attempted test by the user
           self.attemptedTest = test;
      }
 
@@ -88,7 +88,13 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           });
      };
 
+//================================================= Controllers for the modals specified above ==================================
+// as all the code of controllers for different modals is less than 400 lines they are coded in single file here
+// you can makes different files for them if more modularty is wanted but I think it will just make the directories litte more complicated
 
+
+
+//===========================login modal controller=================================================
 
      self.loginCtrl = function($scope,$uibModalInstance,$localStorage,$state) {      // modal controller
 
@@ -140,6 +146,11 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                $uibModalInstance.close();
           };
      }
+
+
+
+
+//==========================================register modal controller==========================================
 
      self.registerCtrl = function($scope,$uibModalInstance,$localStorage,$state) {      // modal controller
 
@@ -201,6 +212,10 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
      }
 
 
+
+
+//===========================================new test modal controller======================================================
+
      self.newTestCtrl = function($scope,$uibModalInstance, $state, $rootScope, testCRUD, $state) {      // modal controller
 
           $scope.testData = self.newTest;
@@ -239,6 +254,10 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           };
      }
 
+
+
+//============================attempted test modal controller==============================================
+
      self.attemptedTestCtrl = function($scope,$uibModalInstance) {      // modal controller
 
           $scope.testData = self.attemptedTest;
@@ -249,12 +268,22 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           };
      }
 
+
+
+
+//===========================login first warning controller=====================================
+
      self.loginFirstCtrl = function($scope,$uibModalInstance) {      // modal controller
 
           $scope.ok = () => {                                      // function to close the modal
                $uibModalInstance.close();
           };
      }
+
+
+
+
+//===========================delete question warning controller=================================
 
      self.deleteQuestion = function($scope,$uibModalInstance, $rootScope) {      // modal controller
 
@@ -267,6 +296,10 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                $uibModalInstance.close();
           };
      }
+
+
+
+//=================================test intruction for user modal controller=============================
 
      self.testInstructionsCtrl = function($scope,$uibModalInstance, $state) {      // modal controller
 
@@ -283,6 +316,11 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                $uibModalInstance.close();
           };
      }
+
+
+
+//===================================forgot password modal controller=============================
+// this controller will use three diffrent modal templates for whole forgot password process
 
      self.forgotPasswordCtrl = function($scope,$uibModalInstance, forgotPassword) {      // modal controller
 
@@ -377,6 +415,10 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           };
      }
 
+
+
+//===============================edit admin comments on the user profile modal controller================================
+
      self.editAdminCommentsCtrl = function($scope,$uibModalInstance) {      // modal controller
 
           $scope.adminComments = self.adminComments;
@@ -391,6 +433,11 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
           };
      }
 
+
+
+
+//==================================dummy modal controller============================================================
+
      self.dummyCtrl = function($scope,$uibModalInstance) {      // modal controller
 
           $scope.message = self.dummymsg;
@@ -403,6 +450,10 @@ myapp.service('modalService', ['$uibModal','$log','$document','$http','$state','
                $uibModalInstance.close();
           };
      }
+
+
+
+//======================================result modal controller===========================================
 
      self.resultCtrl = function($scope,$uibModalInstance) {      // modal controller
 

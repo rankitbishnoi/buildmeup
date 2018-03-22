@@ -1,5 +1,5 @@
 var response = require('./responseSender.js');
-
+// to verify the parameters send by the client side to server before executing the appropriate function
 module.exports.register = (req, res, next) => {
      if(!req.body.name || !req.body.email || !req.body.password) {
           response.sendJSONresponse(res, 400, {

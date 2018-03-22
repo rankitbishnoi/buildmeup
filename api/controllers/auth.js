@@ -2,7 +2,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-var updateLastLogin = (user) => {
+var updateLastLogin = (user) => { //to update the lastlogin whenever user/admin logsin.
      User.findOne({'_id': user._id}, (err, profile) => {
           profile.lastLogin = Date.now();
           profile.save(function(err) {
@@ -20,7 +20,7 @@ module.exports.register = (req, res) => {
      user.local.name = req.body.name;
      user.local.email = req.body.email;
 
-     if (req.body.batch === 1234) {
+     if (req.body.batch === 1234) { // this is the passkey admin should know to register deafult it is 1234, you can change it
           user.batch = 'Admin';
      }else{
           user.batch = 'User';
@@ -40,7 +40,7 @@ module.exports.register = (req, res) => {
      });
 };
 
-module.exports.localLogin = (req, res) => {
+module.exports.localLogin = (req, res) => { 
 
      passport.authenticate('local', function(err, user, info){
           var token;

@@ -25,7 +25,7 @@ var sendEmail = (to, message) =>{            // function to send the emails
      });
 };
 
-module.exports.mail = (reciever, msg) => {             //function to recieve all the Notification sendind calls from other controllers
+module.exports.mail = (reciever, msg) => {             //function to send the otp to the user
 
      sendEmail(reciever, msg);
 }

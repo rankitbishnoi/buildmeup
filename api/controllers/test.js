@@ -3,7 +3,7 @@ var Tests = mongoose.model('Test');
 
 var response = require('../helpers/responseSender.js');
 
-module.exports.createTest = (req, res) => {
+module.exports.createTest = (req, res) => {     // function to add the test to database created by admin
      if (req.body._id === undefined) {
           var test = new Tests({
                name: req.body.name,
@@ -57,7 +57,7 @@ module.exports.createTest = (req, res) => {
 
 }
 
-module.exports.deleteTest = (req, res) => {
+module.exports.deleteTest = (req, res) => { // to change the availability of test to false
      Tests.findOne({'_id': req.body.id}, (err, test) => {
           test.availability = false;
 
@@ -74,7 +74,7 @@ module.exports.deleteTest = (req, res) => {
      });
 }
 
-module.exports.getAdminTestList = (req, res) => {
+module.exports.getAdminTestList = (req, res) => { 
      Tests.find({'admin.id': req.body.id}, (err, testList) => {
           if(err) {
                response.sendJSONresponse(res, 400, {

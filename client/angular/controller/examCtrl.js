@@ -2,6 +2,7 @@ myapp.controller('examCtrl', ['modalService','$state','tokenValidation','socket'
      var self = this;
      self.markedOption = [];
 
+//==================================token validation using service and changing the DOM accordingly ========================
      var tokenValidationResult = tokenValidation.validation();
 
      if (tokenValidationResult === false) {
@@ -14,8 +15,10 @@ myapp.controller('examCtrl', ['modalService','$state','tokenValidation','socket'
                self.test = modalService.newTest;
           }
      }
+//=============================================================================================================================
 
-     self.testTaken = {
+
+     self.testTaken = {                 // setting the answer sheet for submition
                          testId : self.test._id,
                          name: self.test.name,
                          takenOn: Date.now(),
@@ -76,7 +79,7 @@ myapp.controller('examCtrl', ['modalService','$state','tokenValidation','socket'
           });
           self.testTaken.score = ((self.testTaken.correct/self.testTaken.totalQuestions) * 100).toFixed(2);
           userService.updateTestOnUser(self.testTaken, self.userInfo._id);
-          modalService.setParameters('dummyModal');
+          modalService.setParameters('dummyModal');                              // result submition modal
           modalService.setDummyMessage('Your test has been submitted. Please wait while we evaluate it. Do not click On the Screen.');
           modalService.modalFunction();
           self.scorCounter = 1;
@@ -84,8 +87,8 @@ myapp.controller('examCtrl', ['modalService','$state','tokenValidation','socket'
 
      $rootScope.$on('successUpdatingTestOnUser', () => {
           if (self.scorCounter === 1) {
-               $rootScope.$broadcast('close modal');
-               modalService.setParameters('result');
+               $rootScope.$broadcast('close modal');                       // close the submition modal
+               modalService.setParameters('result');                          // result modal settings and calling it
                modalService.setResultOfUserTest(self.testTaken);
                modalService.modalFunction();
                self.scorCounter = 0 ;

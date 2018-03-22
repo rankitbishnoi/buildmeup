@@ -4,10 +4,10 @@ module.exports.controller = (server) => {
      var mongoose = require('mongoose');
      var Users = mongoose.model('User');
 
-     var users = [];
-     var admins = [];
+     var users = []; // variables to hold the inofrmation of the user and admins logged in at a time. currently it is not used in the code
+     var admins = [];// But they are just storing the information if needed in future updates
 
-     var addProfile = (profile) => {
+     var addProfile = (profile) => { // function to add the user/admin profile to specific arrays declared above
           var counter = 0;
           if (profile.batch === 'Admin') {
                admins.forEach((admin) => {
@@ -35,7 +35,7 @@ module.exports.controller = (server) => {
           }
      }
 
-     var generateOTP = () => {
+     var generateOTP = () => { // function to generate the otp while the change password process
           {
                var text = "";
                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -48,12 +48,12 @@ module.exports.controller = (server) => {
      }
 
      io.sockets.on('connection', (socket) => {
-          var myself;
-          var timerId;
-          var otp;
-          var otpCounter = 0;
+          var myself;   // to hold the information of the user logged in using the connection
+          var timerId; // to heold the setInterval ID for stopping the function if user submit the test before time ends
+          var otp;          // variable to hold OTP
+          var otpCounter = 0; // counter to see that otp is sent only 3 times in a session
 
-          var timer = (time) => {
+          var timer = (time) => {           // timer to sync the test clock to the server
                var countdown = time*60;
                var timer = () => {
                     countdown--;

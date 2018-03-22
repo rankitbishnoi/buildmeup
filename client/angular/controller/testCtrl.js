@@ -1,6 +1,8 @@
 myapp.controller('testCtrl', ['$stateParams','testService','$rootScope','tokenValidation','$state','modalService', function($stateParams, testService, $rootScope, tokenValidation, $state, modalService) {
      var self = this;
 
+
+//==================================token validation using service and changing the DOM accordingly ========================
      var tokenValidationResult = tokenValidation.validation();
 
      if (tokenValidationResult === false) {
@@ -16,6 +18,9 @@ myapp.controller('testCtrl', ['$stateParams','testService','$rootScope','tokenVa
      }else if ($state.params.type === 'name') {
           testService.fetchLatestTests();
      }
+
+//=============================================================================================================================
+
 
      testService.fetchSubjectList();
      testService.fetchAttemptedTests(self.userInfo._id);
