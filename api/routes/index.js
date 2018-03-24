@@ -5,7 +5,6 @@ var router = express.Router();
 var jwtAuthentication = require('../helpers/jwtAuthentication');
 var userAuthParameterVerification = require('../helpers/userAuthParameterVerification');
 var testParamsVerification = require('../helpers/testRequestParameterVerification');
-var userParamsVerification = require('../helpers/userTestTakenRequestParameterVerification');
 var ctrlAuth = require('../controllers/auth');
 var ctrlTest = require('../controllers/test');
 var ctrlUser = require('../controllers/user');
