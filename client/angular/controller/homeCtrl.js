@@ -21,6 +21,11 @@ myapp.controller('homeCtrl', ['$rootScope','testService','modalService','userSer
 
      $rootScope.$on('topScorerList', () => {
           self.topScorerList = userService.topScorerList;
+          self.topScorerList.forEach((student, i) => {
+               if (student.performance === undefined) {
+                    self.topScorerList[i].performance = 100;
+               }
+          });
      })
 
      self.availableTestCurrentPage = 0;
